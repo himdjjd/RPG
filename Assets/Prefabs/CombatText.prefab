@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114273559798943418}
   - component: {fileID: 114995449929471130}
   - component: {fileID: 114542407217827380}
+  - component: {fileID: 95897390617435148}
   m_Layer: 5
   m_Name: CombatText
   m_TagString: Untagged
@@ -30,6 +31,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &95897390617435148
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1302168161256038}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bc8e250239014c946b3dafa70f34f0a2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114273559798943418
 MonoBehaviour:
   m_ObjectHideFlags: 1
