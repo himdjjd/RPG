@@ -19,6 +19,9 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private string type;
 
+    [SerializeField]
+    private int level;
+
     /// <summary>
     /// A reference to the character's animator
     /// </summary>
@@ -113,6 +116,19 @@ public abstract class Character : MonoBehaviour
         get
         {
             return type;
+        }
+    }
+
+    public int MyLevel
+    {
+        get
+        {
+            return level;
+        }
+
+        set
+        {
+            level = value;
         }
     }
 

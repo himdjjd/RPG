@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// This is the player script, it contains functionality that is specific to the Player
@@ -28,6 +29,12 @@ public class Player : Character
     [SerializeField]
     private Stat mana;
 
+    [SerializeField]
+    private Stat xp;
+
+    [SerializeField]
+    private Text levelText;
+
     /// <summary>
     /// The player's initial mana
     /// </summary>
@@ -49,6 +56,7 @@ public class Player : Character
     /// Index that keeps track of which exit point to use, 2 is default down
     /// </summary>
     private int exitIndex = 2;
+
 
     private IInteractable interactable;
 
@@ -76,7 +84,8 @@ public class Player : Character
     {
         MyGold = 10;
         mana.Initialize(initMana, initMana);
-
+        xp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
+        levelText.text = MyLevel.ToString();
         base.Start();
     }
 
