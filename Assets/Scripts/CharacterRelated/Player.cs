@@ -30,7 +30,7 @@ public class Player : Character
     private Stat mana;
 
     [SerializeField]
-    private Stat xp;
+    private Stat xpStat;
 
     [SerializeField]
     private Text levelText;
@@ -84,7 +84,7 @@ public class Player : Character
     {
         MyGold = 10;
         mana.Initialize(initMana, initMana);
-        xp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
+        xpStat.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
         levelText.text = MyLevel.ToString();
         base.Start();
     }
@@ -117,6 +117,10 @@ public class Player : Character
         {
             health.MyCurrentValue -= 10;
             mana.MyCurrentValue -= 10;
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            GainXP(16);
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -309,6 +313,33 @@ public class Player : Character
         {
             MyInteractable.Interact();
         }
+    }
+
+    public void GainXP(int xp)
+    {
+        xpStat.MyCurrentValue += xp;
+        CombatTextManager.MyInstance.CreateText(transform.position, xp.ToString(), SCTTYPE.XP, false);
+
+        if (xpStat.MyCurrentValue >= xpStat.MyMaxValue)
+        {
+            StartCoroutine(Ding());
+        }
+    }
+
+    private IEnumerator Ding()
+    {
+        while (!xpStat.IsFull)
+        {
+            yield return null;
+        }
+
+        MyLevel++;
+        levelText.text = MyLevel.ToString();
+        xpStat.MyMaxValue = 100 * MyLevel * Mathf.Pow(MyLevel, 0.5f);
+        xpStat.MyMaxValue = Mathf.Floor(xpStat.MyMaxValue);
+        xpStat.MyCurrentValue = xpStat.MyOverflow;
+        xpStat.Reset();
+        
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

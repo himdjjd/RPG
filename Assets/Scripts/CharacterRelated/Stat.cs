@@ -22,6 +22,8 @@ public class Stat : MonoBehaviour
     /// </summary>
     private float currentFill;
 
+    private float overflow;
+
     /// <summary>
     /// The lerp speed
     /// </summary>
@@ -38,6 +40,21 @@ public class Stat : MonoBehaviour
     /// </summary>
     private float currentValue;
 
+    public bool IsFull
+    {
+        get { return content.fillAmount == 1; }
+    }
+
+    public float MyOverflow
+    {
+        get
+        {
+            float tmp = overflow;
+            overflow = 0;
+            return tmp;
+        }
+    }
+
     /// <summary>
     /// Proprty for setting the current value, this has to be used every time we change the currentValue, so that everything updates correctly
     /// </summary>
@@ -53,6 +70,7 @@ public class Stat : MonoBehaviour
         {
             if (value > MyMaxValue)//Makes sure that we don't get too much health
             {
+                overflow = value - MyMaxValue;
                 currentValue = MyMaxValue;
             }
             else if (value < 0) //Makes sure that we don't get health below 0
@@ -121,5 +139,10 @@ public class Stat : MonoBehaviour
             content.fillAmount = Mathf.MoveTowards(content.fillAmount, currentFill, Time.deltaTime * lerpSpeed);
         }
 
+    }
+
+    public void Reset()
+    {
+        content.fillAmount = 0;
     }
 }
