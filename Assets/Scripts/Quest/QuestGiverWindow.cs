@@ -53,8 +53,6 @@ public class QuestGiverWindow : Window
             {
                 GameObject go = Instantiate(questPrefab, questArea);
 
-                go.GetComponent<Text>().text = "["+quest.MyLevel+"] " + quest.MyTitle;
-
                 go.GetComponent<QGQuestScript>().MyQuest = quest;
 
                 quests.Add(go);
