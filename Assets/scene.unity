@@ -3221,7 +3221,11 @@ Tilemap:
     second:
       m_TileIndex: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
       m_TileSpriteIndex: 16
+=======
+      m_TileSpriteIndex: 14
+>>>>>>> parent of 29b5a0d... 21.2 Mob experience
 =======
       m_TileSpriteIndex: 14
 >>>>>>> parent of 29b5a0d... 21.2 Mob experience
@@ -3462,6 +3466,7 @@ Tilemap:
   - m_RefCount: 4
     m_Data: {fileID: 21300000, guid: 5c5cc53e2f729244c90e40973a1f60c2, type: 3}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: d49893fe18b88fe46a7bc19adf7c23f4, type: 3}
   - m_RefCount: 6
@@ -3469,12 +3474,17 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 5595cbe7794fde64c92264fdbcca6494, type: 3}
 =======
+=======
+>>>>>>> parent of 29b5a0d... 21.2 Mob experience
   - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: d49893fe18b88fe46a7bc19adf7c23f4, type: 3}
   - m_RefCount: 6
     m_Data: {fileID: 21300000, guid: 0871c419e99aa044b95908b5fc795dbe, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+<<<<<<< HEAD
+>>>>>>> parent of 29b5a0d... 21.2 Mob experience
+=======
 >>>>>>> parent of 29b5a0d... 21.2 Mob experience
   - m_RefCount: 5
     m_Data: {fileID: 21300000, guid: 10ca68d6ccae9b044834179e9abf4794, type: 3}
@@ -6415,7 +6425,11 @@ Prefab:
         type: 2}
       propertyPath: level
 <<<<<<< HEAD
+<<<<<<< HEAD
       value: 10
+=======
+      value: 1
+>>>>>>> parent of 29b5a0d... 21.2 Mob experience
 =======
       value: 1
 >>>>>>> parent of 29b5a0d... 21.2 Mob experience
@@ -7888,6 +7902,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &699471164
 Transform:
+<<<<<<< HEAD
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -7901,10 +7916,28 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &699471165
 TilemapRenderer:
+=======
+>>>>>>> parent of 29b5a0d... 21.2 Mob experience
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 699471163}
+<<<<<<< HEAD
+=======
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1541791586}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!483693784 &699471165
+TilemapRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 699471163}
+>>>>>>> parent of 29b5a0d... 21.2 Mob experience
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
