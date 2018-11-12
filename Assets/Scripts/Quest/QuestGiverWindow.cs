@@ -53,6 +53,8 @@ public class QuestGiverWindow : Window
             {
                 GameObject go = Instantiate(questPrefab, questArea);
 
+                go.GetComponent<Text>().text = quest.MyTitle;
+
                 go.GetComponent<QGQuestScript>().MyQuest = quest;
 
                 quests.Add(go);
@@ -154,9 +156,8 @@ public class QuestGiverWindow : Window
                 GameManager.MyInstance.killConfirmedEvent -= new KillConfirmed(o.UpdateKillCount);
     
             }
-     
-            Questlog.MyInstance.RemoveQuest(selectedQuest.MyQuestScript);
 
+            Questlog.MyInstance.RemoveQuest(selectedQuest.MyQuestScript);
             Back();
         }
     }

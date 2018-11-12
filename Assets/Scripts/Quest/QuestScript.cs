@@ -31,6 +31,7 @@ public class QuestScript : MonoBehaviour {
         else if (!MyQuest.IsComplete)
         {
             markedComplete = false;
+            GetComponent<Text>().text = MyQuest.MyTitle;
         }
 
 

@@ -98,8 +98,8 @@ public class Player : Character
         GetInput();
 
         //Clamps the player inside the tilemap
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x),
-            Mathf.Clamp(transform.position.y, min.y, max.y),
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), 
+            Mathf.Clamp(transform.position.y, min.y, max.y), 
             transform.position.z);
 
         base.Update();
@@ -120,7 +120,7 @@ public class Player : Character
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            GainXP(600);
+            GainXP(16);
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -136,7 +136,7 @@ public class Player : Character
         if (Input.GetKey(KeybindManager.MyInstance.Keybinds["LEFT"])) //Moves left
         {
             exitIndex = 3;
-            Direction += Vector2.left;
+            Direction += Vector2.left; 
         }
         if (Input.GetKey(KeybindManager.MyInstance.Keybinds["DOWN"]))
         {
@@ -215,7 +215,7 @@ public class Player : Character
     {
         Block();
 
-        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving && InLineOfSight()) //Chcks if we are able to attack
+        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive &&!IsAttacking && !IsMoving && InLineOfSight()) //Chcks if we are able to attack
         {
             attackRoutine = StartCoroutine(Attack(spellName));
         }
@@ -339,12 +339,12 @@ public class Player : Character
         xpStat.MyMaxValue = Mathf.Floor(xpStat.MyMaxValue);
         xpStat.MyCurrentValue = xpStat.MyOverflow;
         xpStat.Reset();
-
+        
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy" || collision.tag == "Interactable")
+        if (collision.tag == "Enemy" ||collision.tag== "Interactable")
         {
             MyInteractable = collision.GetComponent<IInteractable>();
         }
@@ -359,7 +359,7 @@ public class Player : Character
                 MyInteractable.StopInteract();
                 MyInteractable = null;
             }
-
+  
         }
     }
 }

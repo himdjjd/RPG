@@ -87,7 +87,7 @@ public class Questlog : MonoBehaviour
 
             questScripts.Add(qs);
 
-            go.GetComponent<Text>().text =  quest.MyTitle;
+            go.GetComponent<Text>().text = quest.MyTitle;
 
             CheckCompletion();
         }
