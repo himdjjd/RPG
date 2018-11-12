@@ -8,7 +8,7 @@ static class XPManager
     public static int CalculateXP(Enemy e)
     {
         //  XP = (Char Level * 5) +45, where Char Level = Mob Level, for mobs in Azeroth 
-        int baseXP = (Player.MyInstance.MyGold * 5) + 45;
+        int baseXP = (Player.MyInstance.MyLevel * 5) + 45;
 
         int grayLevel = CalculateGrayLevel();
 
@@ -26,6 +26,36 @@ static class XPManager
         }
 
         return totalXP;
+    }
+
+    public static int CalculateXP(Quest e)
+    {
+        if (Player.MyInstance.MyLevel <= e.MyLevel +5)
+        {
+            return e.MyXp;
+        }
+        if (Player.MyInstance.MyLevel == e.MyLevel + 6)
+        {
+           return (int)(e.MyXp * 0.8/5)*5;
+        }
+        if (Player.MyInstance.MyLevel == e.MyLevel + 7)
+        {
+            return (int)(e.MyXp * 0.6 / 5) * 5;
+        }
+        if (Player.MyInstance.MyLevel == e.MyLevel + 8)
+        {
+            return (int)(e.MyXp * 0.4 / 5) * 5;
+        }
+        if (Player.MyInstance.MyLevel == e.MyLevel + 9)
+        {
+            return (int)(e.MyXp * 0.2 / 5) * 5;
+        }
+        if (Player.MyInstance.MyLevel >= e.MyLevel + 10)
+        {
+            return (int)(e.MyXp * 0.1 / 5) * 5;
+        }
+
+        return 0;
     }
 
     private static int ZeroDifference()

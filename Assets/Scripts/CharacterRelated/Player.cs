@@ -120,7 +120,7 @@ public class Player : Character
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            GainXP(16);
+            GainXP(600);
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -339,7 +339,12 @@ public class Player : Character
         xpStat.MyMaxValue = Mathf.Floor(xpStat.MyMaxValue);
         xpStat.MyCurrentValue = xpStat.MyOverflow;
         xpStat.Reset();
-        
+
+        if (xpStat.MyCurrentValue >= xpStat.MyMaxValue)
+        {
+            StartCoroutine(Ding());
+        }
+
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
