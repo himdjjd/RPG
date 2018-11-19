@@ -26,7 +26,7 @@ public class QuestScript : MonoBehaviour {
         {
             markedComplete = true;
             GetComponent<Text>().text = "[" + MyQuest.MyLevel + "] " + MyQuest.MyTitle +"(C)";
-            MessageFeedManager.MyInstance.WriteMessage(string.Format("{0} (C)", MyQuest.MyTitle));
+            MessageFeedManager.MyInstance.WriteMessage(string.Format("{0} (Complete)", MyQuest.MyTitle));
         }
         else if (!MyQuest.IsComplete)
         {
