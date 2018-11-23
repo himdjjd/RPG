@@ -52,6 +52,9 @@ public class Player : Character
     [SerializeField]
     private Transform[] exitPoints;
 
+    [SerializeField]
+    private Animator ding;
+
     /// <summary>
     /// Index that keeps track of which exit point to use, 2 is default down
     /// </summary>
@@ -334,6 +337,7 @@ public class Player : Character
         }
 
         MyLevel++;
+        ding.SetTrigger("Ding");
         levelText.text = MyLevel.ToString();
         xpStat.MyMaxValue = 100 * MyLevel * Mathf.Pow(MyLevel, 0.5f);
         xpStat.MyMaxValue = Mathf.Floor(xpStat.MyMaxValue);

@@ -53,7 +53,7 @@ public class QuestGiverWindow : Window
             {
                 GameObject go = Instantiate(questPrefab, questArea);
 
-                go.GetComponent<Text>().text = "["+quest.MyLevel+"] "+quest.MyTitle;
+                go.GetComponent<Text>().text = "["+quest.MyLevel+"] "+quest.MyTitle + "<color=#ffbb04> <size=12>!</size></color>";
 
                 go.GetComponent<QGQuestScript>().MyQuest = quest;
 
@@ -61,7 +61,7 @@ public class QuestGiverWindow : Window
 
                 if (Questlog.MyInstance.HasQuest(quest) && quest.IsComplete)
                 {
-                    go.GetComponent<Text>().text += "(C)";
+                    go.GetComponent<Text>().text = quest.MyTitle + "<color=#ffbb04> <size=12>?</size></color>";
                 }
                 else if (Questlog.MyInstance.HasQuest(quest))
                 {
@@ -70,6 +70,7 @@ public class QuestGiverWindow : Window
                     c.a = 0.5f;
 
                     go.GetComponent<Text>().color = c;
+                    go.GetComponent<Text>().text = quest.MyTitle + "<color=#c0c0c0ff> <size=12>?</size></color>";
                 }
             }
             
