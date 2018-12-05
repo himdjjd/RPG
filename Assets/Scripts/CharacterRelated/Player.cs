@@ -351,6 +351,11 @@ public class Player : Character
 
     }
 
+    public void UpdateLevel()
+    {
+        levelText.text = MyLevel.ToString();
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy" ||collision.tag== "Interactable")
