@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -6,11 +7,15 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
+    [SerializeField]
+    private Item[] items;
+
+    private Chest[] chests;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-
+        chests = FindObjectsOfType<Chest>();
 
     }
 
@@ -39,6 +44,8 @@ public class SaveManager : MonoBehaviour
 
             SavePlayer(data);
 
+            SaveChests(data);
+
             bf.Serialize(file, data);
 
             file.Close();
@@ -48,6 +55,7 @@ public class SaveManager : MonoBehaviour
         catch (System.Exception)
         {
             //This is for handling errors
+            throw;
         }
     }
 
@@ -58,6 +66,22 @@ public class SaveManager : MonoBehaviour
             Player.MyInstance.MyHealth.MyCurrentValue, Player.MyInstance.MyHealth.MyMaxValue,
             Player.MyInstance.MyMana.MyCurrentValue, Player.MyInstance.MyMana.MyMaxValue,
             Player.MyInstance.transform.position);
+    }
+
+    private void SaveChests(SaveData data)
+    {
+        for (int i = 0; i < chests.Length; i++)
+        {
+            data.MyChestData.Add(new ChestData(chests[i].name));
+
+            foreach (Item item in chests[i].MyItems)
+            {
+                if (chests[i].MyItems.Count > 0)
+                {
+                    data.MyChestData[i].MyItems.Add(new ItemData(item.MyTitle, item.MySlot.MyItems.Count, item.MySlot.MyIndex));
+                }
+            }
+        }
     }
 
 
@@ -75,11 +99,15 @@ public class SaveManager : MonoBehaviour
 
             LoadPlayer(data);
 
+            LoadChests(data);
+
 
         }
         catch (System.Exception)
         {
             //This is for handling errors
+
+            throw;
         }
     }
 
@@ -92,6 +120,21 @@ public class SaveManager : MonoBehaviour
         Player.MyInstance.MyXp.Initialize(data.MyPlayerData.MyXp, data.MyPlayerData.MyMaxXP);
         Player.MyInstance.transform.position = new Vector2(data.MyPlayerData.MyX, data.MyPlayerData.MyY);
 
+    }
+
+    private void LoadChests(SaveData data)
+    {
+        foreach (ChestData chest in data.MyChestData)
+        {
+            Chest c = Array.Find(chests, x => x.name == chest.MyName);
+
+            foreach (ItemData itemData in chest.MyItems)
+            {
+                Item item = Array.Find(items, x => x.MyTitle == itemData.MyTitel);
+                item.MySlot = c.MyBag.MySlots.Find(x => x.MyIndex == itemData.MySlotIndex);
+                c.MyItems.Add(item);
+            }
+        }
 
     }
 }
