@@ -4,16 +4,18 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class SaveManager : MonoBehaviour {
+public class SaveManager : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-     
+    // Use this for initialization
+    void Start()
+    {
+
 
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -31,7 +33,7 @@ public class SaveManager : MonoBehaviour {
         {
             BinaryFormatter bf = new BinaryFormatter();
 
-            FileStream file = File.Open(Application.persistentDataPath + "/" + "SaveTest.dat", FileMode.OpenOrCreate);
+            FileStream file = File.Open(Application.persistentDataPath + "/" + "SaveTest.dat", FileMode.Create);
 
             SaveData data = new SaveData();
 
@@ -51,7 +53,11 @@ public class SaveManager : MonoBehaviour {
 
     private void SavePlayer(SaveData data)
     {
-        data.MyPlayerData = new PlayerData(Player.MyInstance.MyLevel);
+        data.MyPlayerData = new PlayerData(Player.MyInstance.MyLevel,
+            Player.MyInstance.MyXp.MyCurrentValue, Player.MyInstance.MyXp.MyMaxValue,
+            Player.MyInstance.MyHealth.MyCurrentValue, Player.MyInstance.MyHealth.MyMaxValue,
+            Player.MyInstance.MyMana.MyCurrentValue, Player.MyInstance.MyMana.MyMaxValue,
+            Player.MyInstance.transform.position);
     }
 
 
@@ -81,6 +87,11 @@ public class SaveManager : MonoBehaviour {
     {
         Player.MyInstance.MyLevel = data.MyPlayerData.MyLevel;
         Player.MyInstance.UpdateLevel();
+        Player.MyInstance.MyHealth.Initialize(data.MyPlayerData.MyHealth, data.MyPlayerData.MyMaxHealth);
+        Player.MyInstance.MyMana.Initialize(data.MyPlayerData.MyMana, data.MyPlayerData.MyMaxMana);
+        Player.MyInstance.MyXp.Initialize(data.MyPlayerData.MyXp, data.MyPlayerData.MyMaxXP);
+        Player.MyInstance.transform.position = new Vector2(data.MyPlayerData.MyX, data.MyPlayerData.MyY);
+
 
     }
 }
