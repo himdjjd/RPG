@@ -164,7 +164,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
                     Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
 
                     //Makes sure we cant dequip it into itself and that we have enough space for the items from the dequipped bag
-                    if (bag.MyBagScript != MyBag && InventoryScript.MyInstance.MyEmptySlotCount - bag.Slots > 0)
+                    if (bag.MyBagScript != MyBag && InventoryScript.MyInstance.MyEmptySlotCount - bag.MySlotCount > 0)
                     {
                         AddItem(bag);
                         bag.MyBagButton.RemoveBag();

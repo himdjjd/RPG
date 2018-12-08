@@ -30,7 +30,7 @@ public class Bag : Item, IUseable
     /// <summary>
     /// Property for getting the slots
     /// </summary>
-    public int Slots
+    public int MySlotCount
     {
         get
         {
@@ -70,6 +70,12 @@ public class Bag : Item, IUseable
           
         }
  
+    }
+
+    public void SetupScript()
+    {
+        MyBagScript = Instantiate(bagPrefab, InventoryScript.MyInstance.transform).GetComponent<BagScript>();
+        MyBagScript.AddSlots(slots);
     }
 
     public override string GetDescription()

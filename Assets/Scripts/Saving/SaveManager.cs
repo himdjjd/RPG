@@ -42,6 +42,8 @@ public class SaveManager : MonoBehaviour
 
             SaveData data = new SaveData();
 
+            SaveBags(data);
+
             SavePlayer(data);
 
             SaveChests(data);
@@ -84,6 +86,15 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    public void SaveBags(SaveData data)
+    {
+        for (int i = 1; i < InventoryScript.MyInstance.MyBags.Count; i++)
+        {
+            data.MyInventoryData.MyBags.Add(new BagData(InventoryScript.MyInstance.MyBags[i].MySlotCount, InventoryScript.MyInstance.MyBags[i].MyBagButton.MyBagIndex));
+
+        }
+    }
+
 
     private void Load()
     {
@@ -96,6 +107,8 @@ public class SaveManager : MonoBehaviour
             SaveData data = (SaveData)bf.Deserialize(file);
 
             file.Close();
+
+            LoadBags(data);
 
             LoadPlayer(data);
 
@@ -136,5 +149,17 @@ public class SaveManager : MonoBehaviour
             }
         }
 
+    }
+
+    public void LoadBags(SaveData data)
+    {
+        foreach (BagData bagData in data.MyInventoryData.MyBags)
+        {
+            Bag newBag = (Bag)Instantiate(items[0]);
+
+            newBag.Initialize(bagData.MySlotCount);
+
+            InventoryScript.MyInstance.AddBag(newBag, bagData.MyBagIndex);
+        }
     }
 }

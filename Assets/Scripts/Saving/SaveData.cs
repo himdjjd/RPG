@@ -9,8 +9,11 @@ public class SaveData
 
     public List<ChestData> MyChestData { get; set; }
 
+    public InventoryData MyInventoryData { get; set; }
+
     public SaveData()
     {
+        MyInventoryData = new InventoryData();
         MyChestData = new List<ChestData>();
     }
 }
@@ -36,7 +39,7 @@ public class PlayerData
 
     public float MyY { get; set; }
 
-    public PlayerData(int level, float xp, float maxXp, float health, float maxHealth,float mana, float maxMana, Vector2 position)
+    public PlayerData(int level, float xp, float maxXp, float health, float maxHealth, float mana, float maxMana, Vector2 position)
     {
         this.MyLevel = level;
         this.MyXp = xp;
@@ -80,5 +83,30 @@ public class ChestData
         MyName = name;
 
         MyItems = new List<ItemData>();
+    }
+}
+
+[Serializable]
+public class InventoryData
+{
+    public List<BagData> MyBags { get; set; }
+
+    public InventoryData()
+    {
+        MyBags = new List<BagData>();
+    }
+}
+
+[Serializable]
+public class BagData
+{
+    public int MySlotCount { get; set; }
+    public int MyBagIndex { get; set; }
+
+    public BagData(int count, int index)
+    {
+        MySlotCount = count;
+        MyBagIndex = index;
+
     }
 }
