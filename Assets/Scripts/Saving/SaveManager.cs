@@ -12,10 +12,13 @@ public class SaveManager : MonoBehaviour
 
     private Chest[] chests;
 
+    private CharButton[] equipment;
+
     // Use this for initialization
     void Awake()
     {
         chests = FindObjectsOfType<Chest>();
+        equipment = FindObjectsOfType<CharButton>();
 
     }
 
@@ -41,6 +44,8 @@ public class SaveManager : MonoBehaviour
             FileStream file = File.Open(Application.persistentDataPath + "/" + "SaveTest.dat", FileMode.Create);
 
             SaveData data = new SaveData();
+
+            SaveEquipment(data);
 
             SaveBags(data);
 
@@ -95,6 +100,18 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    public void SaveEquipment(SaveData data)
+    {
+
+        foreach (CharButton charButton in equipment)
+        {
+            if (charButton.MyEquippedArmor != null)
+            {
+                data.MyEquipmentData.Add(new EquipmentData(charButton.MyEquippedArmor.MyTitle, charButton.name));
+            }
+        }
+    }
+
 
     private void Load()
     {
@@ -107,6 +124,8 @@ public class SaveManager : MonoBehaviour
             SaveData data = (SaveData)bf.Deserialize(file);
 
             file.Close();
+
+            LoadEquipment(data);
 
             LoadBags(data);
 
@@ -160,6 +179,16 @@ public class SaveManager : MonoBehaviour
             newBag.Initialize(bagData.MySlotCount);
 
             InventoryScript.MyInstance.AddBag(newBag, bagData.MyBagIndex);
+        }
+    }
+
+    public void LoadEquipment(SaveData data)
+    {
+        foreach (EquipmentData equipmentData in data.MyEquipmentData)
+        {
+            CharButton cb = Array.Find(equipment, x => x.name == equipmentData.MyType);
+
+            cb.EquipArmor(Array.Find(items, x => x.MyTitle == equipmentData.MyTitle) as Armor);
         }
     }
 }

@@ -9,12 +9,15 @@ public class SaveData
 
     public List<ChestData> MyChestData { get; set; }
 
+    public List<EquipmentData> MyEquipmentData { get; set; }
+
     public InventoryData MyInventoryData { get; set; }
 
     public SaveData()
     {
         MyInventoryData = new InventoryData();
         MyChestData = new List<ChestData>();
+        MyEquipmentData = new List<EquipmentData>();
     }
 }
 
@@ -109,4 +112,19 @@ public class BagData
         MyBagIndex = index;
 
     }
+}
+
+[Serializable]
+public class EquipmentData
+{
+    public string  MyTitle { get; set; }
+
+    public string MyType { get; set; }
+
+    public EquipmentData(string title, string type)
+    {
+        MyTitle = title;
+        MyType = type;
+    }
+
 }
