@@ -14,6 +14,9 @@ public class SaveManager : MonoBehaviour
 
     private CharButton[] equipment;
 
+    [SerializeField]
+    private ActionButton[] actionButtons;
+
     // Use this for initialization
     void Awake()
     {
@@ -52,6 +55,8 @@ public class SaveManager : MonoBehaviour
             SavePlayer(data);
 
             SaveChests(data);
+
+            SaveActionButtons(data);
 
             bf.Serialize(file, data);
 
@@ -112,6 +117,28 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    public void SaveActionButtons(SaveData data)
+    {
+        for (int i = 0; i < actionButtons.Length; i++)
+        {
+            if (actionButtons[i].MyUseable != null)
+            {
+                ActionButtonData action;
+
+                if (actionButtons[i].MyUseable is Spell)
+                {
+                    action = new ActionButtonData((actionButtons[i].MyUseable as Spell).MyName, false, i);
+                }
+                else
+                {
+                    action = new ActionButtonData((actionButtons[i].MyUseable as Item).MyTitle, true, i);
+                }
+
+                data.MyActionButtonData.Add(action);
+            }
+        }
+    }
+
 
     private void Load()
     {
@@ -133,6 +160,7 @@ public class SaveManager : MonoBehaviour
 
             LoadChests(data);
 
+            LoadActionButtons(data);
 
         }
         catch (System.Exception)
@@ -189,6 +217,21 @@ public class SaveManager : MonoBehaviour
             CharButton cb = Array.Find(equipment, x => x.name == equipmentData.MyType);
 
             cb.EquipArmor(Array.Find(items, x => x.MyTitle == equipmentData.MyTitle) as Armor);
+        }
+    }
+
+    public void LoadActionButtons(SaveData data)
+    {
+        foreach (ActionButtonData buttonData in data.MyActionButtonData)
+        {
+            if (buttonData.IsItem)
+            {
+                actionButtons[buttonData.MyIndex].SetUseable(InventoryScript.MyInstance.GetUseable(buttonData.MyAction));
+            }
+            else
+            {
+                actionButtons[buttonData.MyIndex].SetUseable(SpellBook.MyInstance.GetSpell(buttonData.MyAction));
+            }
         }
     }
 }

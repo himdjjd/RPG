@@ -142,7 +142,7 @@ public class Player : Character
         Direction = Vector2.zero;
 
         ///THIS IS USED FOR DEBUGGING ONLY
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
         {
             health.MyCurrentValue -= 10;
             MyMana.MyCurrentValue -= 10;
@@ -151,7 +151,7 @@ public class Player : Character
         {
             GainXP(600);
         }
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
             health.MyCurrentValue += 10;
             MyMana.MyCurrentValue += 10;
