@@ -52,6 +52,8 @@ public class SaveManager : MonoBehaviour
 
             SaveBags(data);
 
+            SaveInventory(data);
+
             SavePlayer(data);
 
             SaveChests(data);
@@ -96,7 +98,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void SaveBags(SaveData data)
+    private void SaveBags(SaveData data)
     {
         for (int i = 1; i < InventoryScript.MyInstance.MyBags.Count; i++)
         {
@@ -105,7 +107,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void SaveEquipment(SaveData data)
+    private void SaveEquipment(SaveData data)
     {
 
         foreach (CharButton charButton in equipment)
@@ -117,7 +119,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void SaveActionButtons(SaveData data)
+    private void SaveActionButtons(SaveData data)
     {
         for (int i = 0; i < actionButtons.Length; i++)
         {
@@ -139,6 +141,17 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    private void SaveInventory(SaveData data)
+    {
+        List<SlotScript> slots = InventoryScript.MyInstance.GetAllItems();
+
+        foreach (SlotScript slot in slots)
+        {
+            data.MyInventoryData.MyItems.Add(new ItemData(slot.MyItem.MyTitle, slot.MyItems.Count, slot.MyIndex, slot.MyBag.MyBagIndex));
+        }
+
+    }
+
 
     private void Load()
     {
@@ -155,6 +168,8 @@ public class SaveManager : MonoBehaviour
             LoadEquipment(data);
 
             LoadBags(data);
+
+            LoadInventory(data);
 
             LoadPlayer(data);
 
@@ -198,7 +213,7 @@ public class SaveManager : MonoBehaviour
 
     }
 
-    public void LoadBags(SaveData data)
+    private void LoadBags(SaveData data)
     {
         foreach (BagData bagData in data.MyInventoryData.MyBags)
         {
@@ -210,7 +225,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void LoadEquipment(SaveData data)
+    private void LoadEquipment(SaveData data)
     {
         foreach (EquipmentData equipmentData in data.MyEquipmentData)
         {
@@ -220,7 +235,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void LoadActionButtons(SaveData data)
+    private void LoadActionButtons(SaveData data)
     {
         foreach (ActionButtonData buttonData in data.MyActionButtonData)
         {
@@ -231,6 +246,19 @@ public class SaveManager : MonoBehaviour
             else
             {
                 actionButtons[buttonData.MyIndex].SetUseable(SpellBook.MyInstance.GetSpell(buttonData.MyAction));
+            }
+        }
+    }
+
+    private void LoadInventory(SaveData data)
+    {
+        foreach (ItemData itemData in data.MyInventoryData.MyItems)
+        {
+            Item item = Array.Find(items, x => x.MyTitle == itemData.MyTitel);
+
+            for (int i = 0; i < itemData.MyStackCount; i++)
+            {
+                InventoryScript.MyInstance.PlaceInSpecific(item, itemData.MySlotIndex, itemData.MyBagIndex);
             }
         }
     }

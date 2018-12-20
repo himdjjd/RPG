@@ -21,6 +21,8 @@ public class BagScript : MonoBehaviour
     /// </summary>
     private List<SlotScript> slots = new List<SlotScript>();
 
+    public int MyBagIndex { get; set; }
+
     /// <summary>
     /// Indicates if this bag is open or closed
     /// </summary>

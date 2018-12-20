@@ -280,6 +280,12 @@ public class InventoryScript : MonoBehaviour
         return false; //It wasn't possible to stack the item
     }
 
+    public void PlaceInSpecific(Item item, int slotIndex, int bagIndex)
+    {
+        bags[bagIndex].MyBagScript.MySlots[slotIndex].AddItem(item);
+
+    }
+
     /// <summary>
     /// Opens and closes all bags
     /// </summary>
@@ -299,6 +305,26 @@ public class InventoryScript : MonoBehaviour
             }
         }
     }
+
+    public List<SlotScript> GetAllItems()
+    {
+        List<SlotScript> slots = new List<SlotScript>();
+
+        foreach (Bag bag in MyBags)
+        {
+            foreach (SlotScript slot in bag.MyBagScript.MySlots)
+            {
+                if (!slot.IsEmpty)
+                {
+                    slots.Add(slot);
+                }
+            }
+        }
+
+        return slots;
+    }
+
+
 
     public Stack<IUseable> GetUseables(IUseable type)
     {

@@ -61,9 +61,12 @@ public class Enemy : Character, IInteractable
             return Vector2.Distance(transform.position, MyTarget.position) < MyAggroRange;
         }
     }
-
+    
     protected void Awake()
     {
+        SpriteRenderer sr;
+        sr = GetComponent<SpriteRenderer>();
+        sr.enabled = true;
         MyStartPosition = transform.position;
         MyAggroRange = initAggroRange;
         MyAttackRange = 1;

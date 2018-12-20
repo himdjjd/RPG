@@ -214,7 +214,7 @@ public class Player : Character
         Transform currentTarget = MyTarget;
 
         //Creates a new spell, so that we can use the information form it to cast it in the game
-        Spell newSpell = SpellBook.MyInstance.CastSpell(spellName);
+        Spell newSpell = SpellBook.MyInstance.CastSpell("Fireball");
 
         IsAttacking = true; //Indicates if we are attacking
 

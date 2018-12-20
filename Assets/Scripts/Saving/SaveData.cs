@@ -69,8 +69,11 @@ public class ItemData
 
     public int MySlotIndex { get; set; }
 
-    public ItemData(string titel, int stackCount = 0, int slotIndex = 0)
+    public int MyBagIndex { get; set; }
+
+    public ItemData(string titel, int stackCount = 0, int slotIndex = 0, int bagIndex = 0)
     {
+        MyBagIndex = bagIndex;
         MyTitel = titel;
         MyStackCount = stackCount;
         MySlotIndex = slotIndex;
@@ -97,9 +100,12 @@ public class InventoryData
 {
     public List<BagData> MyBags { get; set; }
 
+    public List<ItemData> MyItems { get; set; }
+
     public InventoryData()
     {
         MyBags = new List<BagData>();
+        MyItems = new List<ItemData>();
     }
 }
 
