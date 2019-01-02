@@ -60,6 +60,8 @@ public class SaveManager : MonoBehaviour
 
             SaveActionButtons(data);
 
+            SaveQuests(data);
+
             bf.Serialize(file, data);
 
             file.Close();
@@ -152,6 +154,14 @@ public class SaveManager : MonoBehaviour
 
     }
 
+    private void SaveQuests(SaveData data)
+    {
+        foreach (Quest quest in Questlog.MyInstance.MyQuests)
+        {
+            data.MyQuestData.Add(new QuestData(quest.MyTitle, quest.MyDescription, quest.MyCollectObjectives, quest.MyKillObjectives,quest.MyQuestGiver.MyQuestGiverID));
+        }
+    }
+
 
     private void Load()
     {
@@ -176,6 +186,8 @@ public class SaveManager : MonoBehaviour
             LoadChests(data);
 
             LoadActionButtons(data);
+
+            LoadQuests(data);
 
         }
         catch (System.Exception)
@@ -260,6 +272,20 @@ public class SaveManager : MonoBehaviour
             {
                 InventoryScript.MyInstance.PlaceInSpecific(item, itemData.MySlotIndex, itemData.MyBagIndex);
             }
+        }
+    }
+
+    private void LoadQuests(SaveData data)
+    {
+        QuestGiver[] questGivers = FindObjectsOfType<QuestGiver>();
+
+        foreach (QuestData questData in data.MyQuestData)
+        {
+            QuestGiver qg = Array.Find(questGivers, x => x.MyQuestGiverID == questData.MyQuestGiverID);
+            Quest q = Array.Find(qg.MyQuests, x => x.MyTitle == questData.MyTitle);
+            q.MyQuestGiver = qg;
+
+            Questlog.MyInstance.AcceptQuest(q);
         }
     }
 }

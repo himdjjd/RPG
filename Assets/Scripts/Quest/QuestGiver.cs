@@ -13,11 +13,22 @@ public class QuestGiver : NPC {
     [SerializeField]
     private SpriteRenderer statusRenderer;
 
+    [SerializeField]
+    private int questGiverID;
+
     public Quest[] MyQuests
     {
         get
         {
             return quests;
+        }
+    }
+
+    public int MyQuestGiverID
+    {
+        get
+        {
+            return questGiverID;
         }
     }
 

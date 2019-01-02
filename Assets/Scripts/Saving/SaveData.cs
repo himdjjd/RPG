@@ -15,12 +15,15 @@ public class SaveData
 
     public List<ActionButtonData> MyActionButtonData { get; set; }
 
+    public List<QuestData> MyQuestData { get; set; }
+
     public SaveData()
     {
         MyInventoryData = new InventoryData();
         MyChestData = new List<ChestData>();
         MyActionButtonData = new List<ActionButtonData>();
         MyEquipmentData = new List<EquipmentData>();
+        MyQuestData = new List<QuestData>();
     }
 }
 
@@ -152,5 +155,32 @@ public class ActionButtonData
         this.MyAction = action;
         this.IsItem = isItem;
         this.MyIndex = index;
+    }
+}
+
+[Serializable]
+public class QuestData
+{
+    public string MyTitle { get; set; }
+
+    public string MyDescription { get; set; }
+
+    public CollectObjective[] MyCollectObjectives { get; set; }
+
+    public KillObjective[] MyKillObjectives { get; set; }
+
+    public int MyQuestGiverID { get; set; }
+
+    public QuestData(string title, string description, CollectObjective[] collectObjectives, KillObjective[] killObjectives, int questGiverID)
+    {
+        MyTitle = title;
+
+        MyDescription = description;
+
+        MyCollectObjectives = collectObjectives;
+
+        MyKillObjectives = killObjectives;
+
+        MyQuestGiverID = questGiverID;
     }
 }

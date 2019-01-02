@@ -47,6 +47,19 @@ public class Questlog : MonoBehaviour
 
     }
 
+    public List<Quest> MyQuests
+    {
+        get
+        {
+            return quests;
+        }
+
+        set
+        {
+            quests = value;
+        }
+    }
+
     private void Start()
     {
         questCountTxt.text = currentCount + "/" + maxCount;
@@ -77,7 +90,7 @@ public class Questlog : MonoBehaviour
                 GameManager.MyInstance.killConfirmedEvent += new KillConfirmed(o.UpdateKillCount);
             }
 
-            quests.Add(quest);
+            MyQuests.Add(quest);
 
             GameObject go = Instantiate(questPrefab, questParent);
 
@@ -182,7 +195,7 @@ public class Questlog : MonoBehaviour
     {
         questScripts.Remove(qs);
         Destroy(qs.gameObject);
-        quests.Remove(qs.MyQuest);
+        MyQuests.Remove(qs.MyQuest);
         questDescription.text = string.Empty;
         selected = null; //Deselectring the quest
         currentCount--;
@@ -193,6 +206,6 @@ public class Questlog : MonoBehaviour
 
     public bool HasQuest(Quest quest)
     {
-        return quests.Exists(x => x.MyTitle == quest.MyTitle);
+        return MyQuests.Exists(x => x.MyTitle == quest.MyTitle);
     }
 }

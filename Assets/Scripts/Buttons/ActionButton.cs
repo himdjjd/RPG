@@ -138,6 +138,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
 
             InventoryScript.MyInstance.FromSlot.MyIcon.color = Color.white;
             InventoryScript.MyInstance.FromSlot = null;
+
         }
         else
         {
