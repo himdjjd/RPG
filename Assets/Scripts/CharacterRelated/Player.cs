@@ -111,7 +111,7 @@ public class Player : Character
 
     protected override void Start()
     {
-        MyGold = 10;
+        MyGold = 1000;
         MyMana.Initialize(initMana, initMana);
         MyXp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
         levelText.text = MyLevel.ToString();
@@ -214,7 +214,7 @@ public class Player : Character
         Transform currentTarget = MyTarget;
 
         //Creates a new spell, so that we can use the information form it to cast it in the game
-        Spell newSpell = SpellBook.MyInstance.CastSpell("Fireball");
+        Spell newSpell = SpellBook.MyInstance.CastSpell(spellName);
 
         IsAttacking = true; //Indicates if we are attacking
 

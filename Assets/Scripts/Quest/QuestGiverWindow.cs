@@ -142,7 +142,9 @@ public class QuestGiverWindow : Window
             {
                 if (selectedQuest == questGiver.MyQuests[i])
                 {
+                    questGiver.MyCompltedQuests.Add(selectedQuest.MyTitle);
                     questGiver.MyQuests[i] = null;
+                    selectedQuest.MyQuestGiver.UpdateQuestStatus();
                 }
             }
 

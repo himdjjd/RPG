@@ -17,6 +17,8 @@ public class SaveData
 
     public List<QuestData> MyQuestData { get; set; }
 
+    public List<QuestGiverData> MyQuestGiverData { get; set; }
+
     public SaveData()
     {
         MyInventoryData = new InventoryData();
@@ -24,6 +26,7 @@ public class SaveData
         MyActionButtonData = new List<ActionButtonData>();
         MyEquipmentData = new List<EquipmentData>();
         MyQuestData = new List<QuestData>();
+        MyQuestGiverData = new List<QuestGiverData>();
     }
 }
 
@@ -182,5 +185,19 @@ public class QuestData
         MyKillObjectives = killObjectives;
 
         MyQuestGiverID = questGiverID;
+    }
+}
+
+[Serializable]
+public class QuestGiverData
+{
+    public List<string> MyCompletedQuests { get; set; }
+
+    public int MyQuestGiverID { get; set; }
+
+    public QuestGiverData(int questGiverID, List<string> completedQuests)
+    {
+        this.MyQuestGiverID = questGiverID;
+        MyCompletedQuests = completedQuests;
     }
 }

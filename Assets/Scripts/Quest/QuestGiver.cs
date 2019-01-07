@@ -16,6 +16,8 @@ public class QuestGiver : NPC {
     [SerializeField]
     private int questGiverID;
 
+    private List<string> compltedQuests = new List<string>();
+
     public Quest[] MyQuests
     {
         get
@@ -29,6 +31,30 @@ public class QuestGiver : NPC {
         get
         {
             return questGiverID;
+        }
+    }
+
+    public List<string> MyCompltedQuests
+    {
+        get
+        {
+            return compltedQuests;
+        }
+
+        set
+        {
+            compltedQuests = value;
+
+            foreach (string title in compltedQuests)
+            {
+                for (int i = 0; i < quests.Length; i++)
+                {
+                    if (quests[i] != null && quests[i].MyTitle == title)
+                    {
+                        quests[i] = null;
+                    }
+                }
+            }
         }
     }
 

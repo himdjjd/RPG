@@ -62,6 +62,8 @@ public class SaveManager : MonoBehaviour
 
             SaveQuests(data);
 
+            SaveQuestGivers(data);
+
             bf.Serialize(file, data);
 
             file.Close();
@@ -162,6 +164,17 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    private void SaveQuestGivers(SaveData data)
+    {
+        QuestGiver[] questGivers = FindObjectsOfType<QuestGiver>();
+
+        foreach (QuestGiver questGiver in questGivers)
+        {
+            data.MyQuestGiverData.Add(new QuestGiverData(questGiver.MyQuestGiverID, questGiver.MyCompltedQuests));
+        }
+
+    }
+
 
     private void Load()
     {
@@ -188,6 +201,8 @@ public class SaveManager : MonoBehaviour
             LoadActionButtons(data);
 
             LoadQuests(data);
+
+            LoadQuestGiver(data);
 
         }
         catch (System.Exception)
@@ -284,8 +299,20 @@ public class SaveManager : MonoBehaviour
             QuestGiver qg = Array.Find(questGivers, x => x.MyQuestGiverID == questData.MyQuestGiverID);
             Quest q = Array.Find(qg.MyQuests, x => x.MyTitle == questData.MyTitle);
             q.MyQuestGiver = qg;
-
+            q.MyKillObjectives = questData.MyKillObjectives;
             Questlog.MyInstance.AcceptQuest(q);
+        }
+    }
+
+    private void LoadQuestGiver(SaveData data)
+    {
+        QuestGiver[] questGivers = FindObjectsOfType<QuestGiver>();
+
+        foreach (QuestGiverData questGiverData in data.MyQuestGiverData)
+        {
+            QuestGiver questGiver = Array.Find(questGivers, x => x.MyQuestGiverID == questGiverData.MyQuestGiverID);
+            questGiver.MyCompltedQuests = questGiverData.MyCompletedQuests;
+            questGiver.UpdateQuestStatus();
         }
     }
 }

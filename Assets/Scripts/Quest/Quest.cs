@@ -65,7 +65,8 @@ public class Quest
 
     public bool IsComplete
     {
-        get {
+        get
+        {
 
             foreach (Objective o in collectObjectives)
             {
@@ -94,6 +95,8 @@ public class Quest
         {
             return killObjectives;
         }
+        set
+        { killObjectives = value; }
     }
 
     public int MyLevel
@@ -182,7 +185,7 @@ public class CollectObjective : Objective
                 MessageFeedManager.MyInstance.WriteMessage(string.Format("{0}: {1}/{2}", item.MyTitle, MyCurrentAmount, MyAmount));
             }
 
-          
+
 
             Questlog.MyInstance.CheckCompletion();
             Questlog.MyInstance.UpdateSelected();
