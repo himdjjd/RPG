@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour
     {
         get
         {
-            return Camera.main.ScreenToWorldPoint(new Vector3(0, 0));
+            return GameManager.MyInstance.MyCamera.ScreenToWorldPoint(new Vector3(0, 0));
         }
     }
 
