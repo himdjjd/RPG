@@ -60,10 +60,10 @@ public class CameraFollow : MonoBehaviour {
     /// <param name="maxTile">The position of the maximum tile</param>
     private void SetLimits(Vector3 minTile, Vector3 maxTile)
     {
-       
+        Camera cam = Camera.main;
 
-        float height = 2f * GameManager.MyInstance.MyCamera.orthographicSize;
-        float width = height * GameManager.MyInstance.MyCamera.aspect;
+        float height = 2f * cam.orthographicSize;
+        float width = height * cam.aspect;
 
         xMin = minTile.x + width / 2;
         xMax = maxTile.x - width / 2;

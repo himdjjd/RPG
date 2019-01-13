@@ -311,8 +311,6 @@ public class Player : Character
         {
             StopCoroutine(attackRoutine);
         }
-
-        attackRoutine = null;
     }
 
     public override void HandleLayers()
