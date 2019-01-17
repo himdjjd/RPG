@@ -19,6 +19,10 @@ public class SaveData
 
     public List<QuestGiverData> MyQuestGiverData { get; set; }
 
+    public DateTime MyDateTime { get; set; }
+
+    public string MyScene { get; set; }
+
     public SaveData()
     {
         MyInventoryData = new InventoryData();
@@ -27,6 +31,7 @@ public class SaveData
         MyEquipmentData = new List<EquipmentData>();
         MyQuestData = new List<QuestData>();
         MyQuestGiverData = new List<QuestGiverData>();
+        MyDateTime = DateTime.Now;
     }
 }
 

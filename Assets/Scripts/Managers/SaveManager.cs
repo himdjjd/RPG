@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
 {
@@ -17,36 +18,58 @@ public class SaveManager : MonoBehaviour
     [SerializeField]
     private ActionButton[] actionButtons;
 
+    [SerializeField]
+    private SavedGame[] saveSlots;
+
     // Use this for initialization
     void Awake()
     {
         chests = FindObjectsOfType<Chest>();
         equipment = FindObjectsOfType<CharButton>();
 
+        foreach (SavedGame saved in saveSlots)
+        {
+            //We need to show the saved files here
+            ShowSavedFiles(saved);
+        }
+
+        //TODO  SET Default values
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Save();
-        }
         if (Input.GetKeyDown(KeyCode.E))
         {
             Load();
         }
     }
 
-    private void Save()
+    private void ShowSavedFiles(SavedGame savedGame)
+    {
+   
+        if (File.Exists(Application.persistentDataPath + "/"+savedGame.gameObject.name+".dat"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.gameObject.name + ".dat", FileMode.Open);
+            SaveData data = (SaveData)bf.Deserialize(file);
+            file.Close();
+            savedGame.ShowInfo(data);
+        }
+    }
+
+   public void Save(SavedGame savedGame)
     {
         try
         {
             BinaryFormatter bf = new BinaryFormatter();
 
-            FileStream file = File.Open(Application.persistentDataPath + "/" + "SaveTest.dat", FileMode.Create);
+            FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.gameObject.name+".dat", FileMode.Create);
 
             SaveData data = new SaveData();
+
+            data.MyScene = SceneManager.GetActiveScene().name;
 
             SaveEquipment(data);
 
@@ -67,6 +90,8 @@ public class SaveManager : MonoBehaviour
             bf.Serialize(file, data);
 
             file.Close();
+
+            ShowSavedFiles(savedGame);
 
 
         }
