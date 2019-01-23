@@ -54,6 +54,21 @@ public class SavedGame : MonoBehaviour
         visuals.SetActive(true);
 
         dateTime.text = "Date: " + saveData.MyDateTime.ToString("dd/MM/yyy") + " - Time: " + saveData.MyDateTime.ToString("H:mm");
+        health.fillAmount = saveData.MyPlayerData.MyHealth / saveData.MyPlayerData.MyMaxHealth;
+        healthText.text = saveData.MyPlayerData.MyHealth + " / " +saveData.MyPlayerData.MyMaxHealth;
+
+        mana.fillAmount = saveData.MyPlayerData.MyMana / saveData.MyPlayerData.MyMaxMana;
+        manaText.text = saveData.MyPlayerData.MyMana + " / " + saveData.MyPlayerData.MyMaxMana;
+
+        xp.fillAmount = saveData.MyPlayerData.MyXp / saveData.MyPlayerData.MyMaxXP;
+        xpText.text = saveData.MyPlayerData.MyXp + " / " + saveData.MyPlayerData.MyMaxXP;
+
+        levelText.text = saveData.MyPlayerData.MyLevel.ToString();
+    }
+
+    public void HideVisuals()
+    {
+        visuals.SetActive(false);
     }
 
 }

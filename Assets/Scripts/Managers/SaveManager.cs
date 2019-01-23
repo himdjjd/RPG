@@ -21,6 +21,8 @@ public class SaveManager : MonoBehaviour
     [SerializeField]
     private SavedGame[] saveSlots;
 
+    private string action;
+
     // Use this for initialization
     void Awake()
     {
@@ -37,13 +39,28 @@ public class SaveManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowDialogue(GameObject clickButton)
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        action = clickButton.name;
+
+        switch (action)
         {
-            Load();
+            case "Load":
+                Load(clickButton.GetComponentInParent<SavedGame>());
+                break;
+            case "Save":
+                Save(clickButton.GetComponentInParent<SavedGame>());
+                break;
+            case "Delete":
+                Delete(clickButton.GetComponentInParent<SavedGame>());
+                break;
         }
+    }
+
+    private void Delete(SavedGame savedGame)
+    {
+        File.Delete(Application.persistentDataPath + "/" + savedGame.gameObject.name + ".dat");
+        savedGame.HideVisuals();
     }
 
     private void ShowSavedFiles(SavedGame savedGame)
@@ -201,13 +218,13 @@ public class SaveManager : MonoBehaviour
     }
 
 
-    private void Load()
+    private void Load(SavedGame savedGame)
     {
         try
         {
             BinaryFormatter bf = new BinaryFormatter();
 
-            FileStream file = File.Open(Application.persistentDataPath + "/" + "SaveTest.dat", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/" + savedGame.gameObject.name + ".dat", FileMode.Open);
 
             SaveData data = (SaveData)bf.Deserialize(file);
 

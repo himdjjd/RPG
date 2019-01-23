@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
 
     public event KillConfirmed killConfirmedEvent;
 
+    private Camera mainCamera;
+
     private static GameManager instance;
 
     /// <summary>
@@ -32,6 +34,11 @@ public class GameManager : MonoBehaviour {
 
     }
 
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
+
     // Update is called once per frame
     void Update ()
     {
@@ -44,7 +51,7 @@ public class GameManager : MonoBehaviour {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())//If we click the left mouse button
         {
             //Makes a raycast from the mouse position into the game world
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition),Vector2.zero,Mathf.Infinity,512);
+            RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(Input.mousePosition),Vector2.zero,Mathf.Infinity,512);
 
             if (hit.collider != null && hit.collider.tag == "Enemy")//If we hit something
             {
@@ -76,7 +83,7 @@ public class GameManager : MonoBehaviour {
         else if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
         {
             //Makes a raycast from the mouse position into the game world
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 512);
+            RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, 512);
 
             if (hit.collider != null && (hit.collider.tag == "Enemy" || hit.collider.tag == "Interactable") && hit.collider.gameObject.GetComponent<IInteractable>() == player.MyInteractable)
             {
