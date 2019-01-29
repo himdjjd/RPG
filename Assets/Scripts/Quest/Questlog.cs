@@ -65,14 +65,6 @@ public class Questlog : MonoBehaviour
         questCountTxt.text = currentCount + "/" + maxCount;
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            OpenClose();
-        }
-    }
-
     public void AcceptQuest(Quest quest)
     {
         if (currentCount < maxCount)

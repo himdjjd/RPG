@@ -357,7 +357,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         {
             return false;
         }
-        if (from.MyItem.GetType() == MyItem.GetType() && !IsFull)
+        if (from.MyItem.GetType() == MyItem.GetType() && !IsFull && from.MyItem.MyTitle == MyItem.MyTitle)
         {
             //How many free slots do we have in the stack
             int free = MyItem.MyStackSize - MyCount;

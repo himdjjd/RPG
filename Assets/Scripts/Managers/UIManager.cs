@@ -28,6 +28,10 @@ public class UIManager : MonoBehaviour
     private ActionButton[] actionButtons;
 
     [SerializeField]
+    private CanvasGroup[] menus;
+
+
+    [SerializeField]
     private GameObject targetFrame;
 
     private Stat healthStat;
@@ -80,11 +84,11 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OpenClose(keybindMenu);
+            OpenClose(menus[0]);
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            OpenClose(spellBook);
+            OpenClose(menus[1]);
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -92,8 +96,26 @@ public class UIManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            charPanel.OpenClose();
+            OpenClose(menus[2]);
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            OpenClose(menus[3]);
+        }
+
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    OpenClose(keybindMenu);
+        //}
+        //if (Input.GetKeyDown(KeyCode.I))
+        //{
+        //    OpenClose(spellBook);
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    charPanel.OpenClose();
+        //}
     }
 
     public void ShowTargetFrame(Enemy target)
@@ -166,6 +188,24 @@ public class UIManager : MonoBehaviour
     {
         canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
         canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
+    }
+
+    public void OpenSingle(CanvasGroup canvasGroup)
+    {
+        foreach (CanvasGroup canvas in menus)
+        {
+            CloseSingle(canvas);
+        }
+
+        canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
+        canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts == true ? false : true;
+    }
+
+    public void CloseSingle(CanvasGroup canvasGroup)
+    {
+        canvasGroup.alpha  = 0;
+        canvasGroup.blocksRaycasts = false;
+
     }
 
     /// <summary>
