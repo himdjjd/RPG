@@ -109,15 +109,6 @@ public class Player : Character
         }
     }
 
-    protected override void Start()
-    {
-        MyGold = 1000;
-        MyMana.Initialize(initMana, initMana);
-        MyXp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
-        levelText.text = MyLevel.ToString();
-        base.Start();
-    }
-
     /// <summary>
     /// We are overriding the characters update function, so that we can execute our own functions
     /// </summary>
@@ -132,6 +123,15 @@ public class Player : Character
             transform.position.z);
 
         base.Update();
+    }
+
+    public void SetDefaultValues()
+    {
+        MyGold = 1000;
+        health.Initialize(initHealth, initHealth);
+        MyMana.Initialize(initMana, initMana);
+        MyXp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
+        levelText.text = MyLevel.ToString();
     }
 
     /// <summary>

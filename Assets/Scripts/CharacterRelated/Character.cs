@@ -64,7 +64,7 @@ public abstract class Character : MonoBehaviour
     /// The character's initialHealth
     /// </summary>
     [SerializeField]
-    private float initHealth;
+    protected float initHealth;
 
     /// <summary>
     /// Indicates if character is moving or not
@@ -134,8 +134,6 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void Start()
     {
-        health.Initialize(initHealth, initHealth);
-
         //Makes a reference to the rigidbody2D
         myRigidbody = GetComponent<Rigidbody2D>();
 

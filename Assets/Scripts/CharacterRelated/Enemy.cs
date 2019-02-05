@@ -64,6 +64,7 @@ public class Enemy : Character, IInteractable
     
     protected void Awake()
     {
+        health.Initialize(initHealth, initHealth);
         SpriteRenderer sr;
         sr = GetComponent<SpriteRenderer>();
         sr.enabled = true;
