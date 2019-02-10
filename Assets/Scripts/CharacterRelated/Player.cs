@@ -61,7 +61,7 @@ public class Player : Character
     private int exitIndex = 2;
 
 
-    private IInteractable interactable;
+    private List<IInteractable> interactables = new List<IInteractable>();
 
     private Vector3 min, max;
 
@@ -70,16 +70,16 @@ public class Player : Character
 
     public int MyGold { get; set; }
 
-    public IInteractable MyInteractable
+    public List<IInteractable> MyInteractables
     {
         get
         {
-            return interactable;
+            return interactables;
         }
 
         set
         {
-            interactable = value;
+            interactables = value;
         }
     }
 
@@ -336,13 +336,6 @@ public class Player : Character
         }
     }
 
-    public void Interact()
-    {
-        if (MyInteractable != null)
-        {
-            MyInteractable.Interact();
-        }
-    }
 
     public void GainXP(int xp)
     {
@@ -386,7 +379,12 @@ public class Player : Character
     {
         if (collision.tag == "Enemy" ||collision.tag== "Interactable")
         {
-            MyInteractable = collision.GetComponent<IInteractable>();
+            IInteractable interactable = collision.GetComponent<IInteractable>();
+
+            if (!MyInteractables.Contains(interactable))
+            {
+                MyInteractables.Add(interactable);
+            }
         }
     }
 
@@ -394,11 +392,19 @@ public class Player : Character
     {
         if (collision.tag == "Enemy" || collision.tag == "Interactable")
         {
-            if (MyInteractable != null)
+            if (MyInteractables.Count > 0)
             {
-                MyInteractable.StopInteract();
-                MyInteractable = null;
+                IInteractable interactable = MyInteractables.Find(x => x == collision.GetComponent<IInteractable>());
+
+                if (interactable != null)
+                {
+                    interactable.StopInteract();
+                }
+
+                MyInteractables.Remove(interactable);
             }
+
+           
   
         }
     }

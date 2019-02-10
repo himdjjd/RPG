@@ -126,11 +126,20 @@ public class Enemy : Character, IInteractable
     {
         if (!(currentState is EvadeState))
         {
-            SetTarget(source);
+            if (IsAlive)
+            {
+                SetTarget(source);
 
-            base.TakeDamage(damage, source);
+                base.TakeDamage(damage, source);
 
-            OnHealthChanged(health.MyCurrentValue);
+                OnHealthChanged(health.MyCurrentValue);
+
+                if (!IsAlive)
+                {
+                    Player.MyInstance.GainXP(XPManager.CalculateXP((this as Enemy)));
+                }
+            }
+
         }
 
     }
@@ -176,7 +185,18 @@ public class Enemy : Character, IInteractable
     {
         if (!IsAlive)
         {
-            lootTable.ShowLoot();
+            List<Drop> drops = new List<Drop>();
+
+            foreach (IInteractable interactable in Player.MyInstance.MyInteractables)
+            {
+                if (interactable is Enemy && !(interactable as Enemy).IsAlive)
+                {
+                    drops.AddRange((interactable as Enemy).lootTable.GetLoot());
+                }
+            }
+
+            LootWindow.MyInstance.CreatePages(drops);
+
         }
     }
 

@@ -220,7 +220,9 @@ public abstract class Character : MonoBehaviour
     public virtual void TakeDamage(float damage, Transform source)
     {
         health.MyCurrentValue -= damage;
+
         CombatTextManager.MyInstance.CreateText(transform.position, damage.ToString(), SCTTYPE.DAMAGE,false);
+
         if (health.MyCurrentValue <= 0)
         {
             //Makes sure that the character stops moving when its dead
@@ -228,11 +230,6 @@ public abstract class Character : MonoBehaviour
             myRigidbody.velocity = Direction;
             GameManager.MyInstance.OnKillConfirmed(this);
             MyAnimator.SetTrigger("die");
-
-            if (this is Enemy)
-            {
-                Player.MyInstance.GainXP(XPManager.CalculateXP((this as Enemy)));
-            }
         }
     }
 
