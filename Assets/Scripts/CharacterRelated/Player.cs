@@ -23,6 +23,8 @@ public class Player : Character
         }
     }
 
+    private List<Enemy> attackers = new List<Enemy>();
+
     /// <summary>
     /// The player's mana
     /// </summary>
@@ -106,6 +108,19 @@ public class Player : Character
         set
         {
             mana = value;
+        }
+    }
+
+    public List<Enemy> MyAttackers
+    {
+        get
+        {
+            return attackers;
+        }
+
+        set
+        {
+            attackers = value;
         }
     }
 
@@ -345,6 +360,14 @@ public class Player : Character
         if (MyXp.MyCurrentValue >= MyXp.MyMaxValue)
         {
             StartCoroutine(Ding());
+        }
+    }
+
+    public void AddAttacker(Enemy enemy)
+    {
+        if (!MyAttackers.Contains(enemy))
+        {
+            MyAttackers.Add(enemy);
         }
     }
 

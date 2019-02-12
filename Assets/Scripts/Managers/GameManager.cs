@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
     private Player player;
 
     private Enemy currentTarget;
+    private int targetIndex;
 
     public static GameManager MyInstance
     {
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour {
     {
         //Executes click target
         ClickTarget();
+
+        NextTarget();
 	}
 
     private void ClickTarget()
@@ -55,25 +58,15 @@ public class GameManager : MonoBehaviour {
 
             if (hit.collider != null && hit.collider.tag == "Enemy")//If we hit something
             {
-                if (currentTarget != null)//If we have a current target
-                {
-                    currentTarget.DeSelect(); //deselct the current target
-                }
+                DeSelectTarget();
 
-                currentTarget = hit.collider.GetComponent<Enemy>(); //Selects the new target
-
-                player.MyTarget = currentTarget.Select(); //Gives the player the new target
-
-                UIManager.MyInstance.ShowTargetFrame(currentTarget);
+                SelectTarget(hit.collider.GetComponent<Enemy>());
             }
             else//Deselect the target
             {
                 UIManager.MyInstance.HideTargetFrame();
 
-                if (currentTarget != null) //If we have a current target
-                {
-                    currentTarget.DeSelect(); //We deselct it
-                }
+                DeSelectTarget();
 
                 //We remove the references to the target
                 currentTarget = null;
@@ -91,6 +84,41 @@ public class GameManager : MonoBehaviour {
             }
         }
    
+    }
+
+    private void NextTarget()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            DeSelectTarget();
+
+            if (Player.MyInstance.MyAttackers.Count > 0)
+            {
+                SelectTarget(Player.MyInstance.MyAttackers[targetIndex]);
+                targetIndex++;
+                if (targetIndex >= Player.MyInstance.MyAttackers.Count)
+                {
+                    targetIndex = 0;
+                }
+            }
+        }
+
+    }
+
+    private void DeSelectTarget()
+    {
+        if (currentTarget != null)
+        {
+            currentTarget.DeSelect();
+        }
+
+    }
+
+    private void SelectTarget(Enemy enemy)
+    {
+        currentTarget = enemy;
+        player.MyTarget = currentTarget.Select();
+        UIManager.MyInstance.ShowTargetFrame(currentTarget);
     }
 
     public void OnKillConfirmed(Character character)

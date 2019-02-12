@@ -136,6 +136,7 @@ public class Enemy : Character, IInteractable
 
                 if (!IsAlive)
                 {
+                    Player.MyInstance.MyAttackers.Remove(this);
                     Player.MyInstance.GainXP(XPManager.CalculateXP((this as Enemy)));
                 }
             }
