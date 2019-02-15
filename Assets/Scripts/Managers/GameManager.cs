@@ -94,12 +94,21 @@ public class GameManager : MonoBehaviour {
 
             if (Player.MyInstance.MyAttackers.Count > 0)
             {
-                SelectTarget(Player.MyInstance.MyAttackers[targetIndex]);
-                targetIndex++;
-                if (targetIndex >= Player.MyInstance.MyAttackers.Count)
+                if (targetIndex < Player.MyInstance.MyAttackers.Count)
+                {
+                    SelectTarget(Player.MyInstance.MyAttackers[targetIndex]);
+                    targetIndex++;
+                    if (targetIndex >= Player.MyInstance.MyAttackers.Count)
+                    {
+                        targetIndex = 0;
+                    }
+
+                }
+                else
                 {
                     targetIndex = 0;
                 }
+        
             }
         }
 
@@ -119,6 +128,8 @@ public class GameManager : MonoBehaviour {
         currentTarget = enemy;
         player.MyTarget = currentTarget.Select();
         UIManager.MyInstance.ShowTargetFrame(currentTarget);
+
+
     }
 
     public void OnKillConfirmed(Character character)

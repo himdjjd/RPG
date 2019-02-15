@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour, IComparable<Obstacle>
+public class Obstacle : MonoBehaviour
 {
     /// <summary>
     /// The obstacles spriterenderer 
@@ -20,27 +20,9 @@ public class Obstacle : MonoBehaviour, IComparable<Obstacle>
     /// </summary>
     private Color fadedColor;
 
-    /// <summary>
-    /// Compare to, that is used for sorting the obstacles, so that we can pick the on with the lowest sortorder
-    /// </summary>
-    /// <param name="other"></param>
-    /// <returns></returns>
-    public int CompareTo(Obstacle other)
-    {
-        if (MySpriteRenderer.sortingOrder > other.MySpriteRenderer.sortingOrder)
-        {
-            return 1; //If this obstacles has a higher sortorder 
-        }
-        else if (MySpriteRenderer.sortingOrder < other.MySpriteRenderer.sortingOrder)
-        {
-            return -1; //If this obstacles has a lower sortorder 
-        }
-
-        return 0; //If both obstacles ha an equal sortorder
-    }
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         //Creates a reference to the spriterendere
         MySpriteRenderer = GetComponent<SpriteRenderer>();
@@ -49,7 +31,7 @@ public class Obstacle : MonoBehaviour, IComparable<Obstacle>
         defaultColor = MySpriteRenderer.color;
         fadedColor = defaultColor;
         fadedColor.a = 0.7f;
-	}
+    }
 
     /// <summary>
     /// Fades out the obstacle
@@ -66,5 +48,22 @@ public class Obstacle : MonoBehaviour, IComparable<Obstacle>
     {
         MySpriteRenderer.color = defaultColor;
     }
-	
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == "WallHack")
+        {
+            FadeOut();
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.name == "WallHack")
+        {
+            FadeIn();
+        }
+
+    }
+
 }
