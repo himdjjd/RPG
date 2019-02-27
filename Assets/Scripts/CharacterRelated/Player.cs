@@ -57,6 +57,9 @@ public class Player : Character
     [SerializeField]
     private Animator ding;
 
+    [SerializeField]
+    private Transform minimapIcon;
+
     /// <summary>
     /// Index that keeps track of which exit point to use, 2 is default down
     /// </summary>
@@ -176,21 +179,34 @@ public class Player : Character
         {
             exitIndex = 0;
             Direction += Vector2.up;
+            minimapIcon.eulerAngles = new Vector3(0, 0, 0);
         }
         if (Input.GetKey(KeybindManager.MyInstance.Keybinds["LEFT"])) //Moves left
         {
             exitIndex = 3;
-            Direction += Vector2.left; 
+            Direction += Vector2.left;
+            if (Direction.y == 0)
+            {
+                minimapIcon.eulerAngles = new Vector3(0, 0, 90);
+            }
+          
         }
         if (Input.GetKey(KeybindManager.MyInstance.Keybinds["DOWN"]))
         {
             exitIndex = 2;
             Direction += Vector2.down;
+
+            minimapIcon.eulerAngles = new Vector3(0, 0, 180);
         }
         if (Input.GetKey(KeybindManager.MyInstance.Keybinds["RIGHT"])) //Moves right
         {
             exitIndex = 1;
             Direction += Vector2.right;
+            if (Direction.y == 0)
+            {
+                minimapIcon.eulerAngles = new Vector3(0, 0, 270);
+            }
+
         }
         if (IsMoving)
         {
