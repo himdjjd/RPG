@@ -42,7 +42,7 @@ public class Recipe : MonoBehaviour
         }
     }
 
-    public string Description
+    public string MyDescription
     {
         get
         {
