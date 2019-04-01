@@ -32,6 +32,12 @@ public class Profession : MonoBehaviour
 
     private int amount;
 
+    private void Start()
+    {
+        InventoryScript.MyInstance.itemCountChangedEvent += new ItemCountChanged(UpdateMaterialCount);
+
+    }
+
     public void ShowDescription(Recipe recipe)
     {
         if (selectedRecipe != null)
@@ -64,6 +70,17 @@ public class Profession : MonoBehaviour
 
             materials.Add(tmp);
 
+        }
+
+        UpdateMaterialCount(null);
+    }
+
+    private void UpdateMaterialCount(Item item)
+    {
+        foreach (GameObject material in materials)
+        {
+            ItemInfo tmp = material.GetComponent<ItemInfo>();
+            tmp.UpdateStackCount();
         }
     }
 }

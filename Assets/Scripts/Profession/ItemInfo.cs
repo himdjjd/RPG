@@ -47,14 +47,19 @@ public class ItemInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    public void UpdateStackCount()
+    {
+        stack.text = InventoryScript.MyInstance.GetItemCount(MyItem.MyTitle) + "/" + count.ToString();
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-      
+        UIManager.MyInstance.ShowTooltip(new Vector2(0, 0), transform.position, MyItem);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        
+        UIManager.MyInstance.HideTooltip();
     }
 
 }
