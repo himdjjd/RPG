@@ -35,6 +35,7 @@ public class Profession : MonoBehaviour
     private void Start()
     {
         InventoryScript.MyInstance.itemCountChangedEvent += new ItemCountChanged(UpdateMaterialCount);
+        ShowDescription(selectedRecipe);
 
     }
 
@@ -82,5 +83,20 @@ public class Profession : MonoBehaviour
             ItemInfo tmp = material.GetComponent<ItemInfo>();
             tmp.UpdateStackCount();
         }
+    }
+
+    public void Craft()
+    {
+        StartCoroutine(CraftRoutine(0));
+    }
+
+    private IEnumerator CraftRoutine(int count)
+    {
+        yield return Player.MyInstance.MyInitRoutine = StartCoroutine(Player.MyInstance.CraftRoutine(selectedRecipe));
+    }
+
+    public void AdddItemsToInventory()
+    {
+        InventoryScript.MyInstance.AddItem(craftItemInfo.MyItem);
     }
 }

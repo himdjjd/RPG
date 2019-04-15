@@ -65,7 +65,7 @@ public class Player : Character
     /// </summary>
     private int exitIndex = 2;
 
-    private Coroutine initRoutine;
+    public Coroutine MyInitRoutine { get; set; }
 
     private List<IInteractable> interactables = new List<IInteractable>();
 
@@ -73,6 +73,9 @@ public class Player : Character
 
     [SerializeField]
     private GearSocket[] gearSockets;
+
+    [SerializeField]
+    private Profession profession;
 
     public int MyGold { get; set; }
 
@@ -137,8 +140,8 @@ public class Player : Character
         GetInput();
 
         //Clamps the player inside the tilemap
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), 
-            Mathf.Clamp(transform.position.y, min.y, max.y), 
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x),
+            Mathf.Clamp(transform.position.y, min.y, max.y),
             transform.position.z);
 
         base.Update();
@@ -190,7 +193,7 @@ public class Player : Character
             {
                 minimapIcon.eulerAngles = new Vector3(0, 0, 90);
             }
-          
+
         }
         if (Input.GetKey(KeybindManager.MyInstance.Keybinds["DOWN"]))
         {
@@ -267,6 +270,14 @@ public class Player : Character
         LootWindow.MyInstance.CreatePages(items);
     }
 
+    public IEnumerator CraftRoutine(ICastable castable)
+    {
+        yield return actionRoutine = StartCoroutine(ActionRoutine(castable));
+
+        profession.AdddItemsToInventory();
+    }
+
+
     private IEnumerator ActionRoutine(ICastable castable)
     {
         SpellBook.MyInstance.Cast(castable);
@@ -295,7 +306,7 @@ public class Player : Character
 
         if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive &&!IsAttacking && !IsMoving && InLineOfSight()) //Chcks if we are able to attack
         {
-            initRoutine = StartCoroutine(AttackRoutine(castable));
+            MyInitRoutine = StartCoroutine(AttackRoutine(castable));
         }
     }
 
@@ -303,7 +314,7 @@ public class Player : Character
     {
         if (!IsAttacking)
         {
-            initRoutine = StartCoroutine(GatherRoutine(castable, items));
+            MyInitRoutine = StartCoroutine(GatherRoutine(castable, items));
         }
     }
 
@@ -372,9 +383,9 @@ public class Player : Character
 
     private void StopInit()
     {
-        if (initRoutine != null)
+        if (MyInitRoutine != null)
         {
-            StopCoroutine(initRoutine);
+            StopCoroutine(MyInitRoutine);
         }
     }
 

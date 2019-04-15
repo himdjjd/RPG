@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Recipe : MonoBehaviour
+public class Recipe : MonoBehaviour, ICastable
 {
 
     [SerializeField]
@@ -20,6 +20,13 @@ public class Recipe : MonoBehaviour
 
     [SerializeField]
     private Image highlight;
+
+    [SerializeField]
+    private float craftTime;
+
+    [SerializeField]
+    private Color barColor;
+
 
     public Item Output
     {
@@ -58,6 +65,34 @@ public class Recipe : MonoBehaviour
         }
     }
 
+    public string MyTitle
+    {
+        get
+        {
+            return output.MyTitle;
+        }
+    }
+    public Sprite MyIcon
+    {
+        get
+        {
+            return output.MyIcon;
+        }
+    }
+    public float MyCastTime
+    {
+        get
+        {
+            return craftTime;
+        }
+    }
+    public Color MyBarColor
+    {
+        get
+        {
+            return barColor;
+        }
+    }
 
 
     // Start is called before the first frame update
