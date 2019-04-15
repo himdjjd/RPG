@@ -87,7 +87,35 @@ public class Profession : MonoBehaviour
 
     public void Craft()
     {
-        StartCoroutine(CraftRoutine(0));
+        if (CanCraft())
+        {
+            StartCoroutine(CraftRoutine(0));
+        }
+
+        
+    }
+
+    private bool CanCraft()
+    {
+        bool canCraft = true;
+
+        foreach (CraftingMaterial material in selectedRecipe.Materials)
+        {
+            int count = InventoryScript.MyInstance.GetItemCount(material.MyItem.MyTitle);
+
+            if (count >= material.MyCount)
+            {
+                continue;
+            }
+            else
+            {
+                canCraft = false;
+                break;
+            }
+            
+        }
+
+        return canCraft;
     }
 
     private IEnumerator CraftRoutine(int count)
@@ -97,6 +125,17 @@ public class Profession : MonoBehaviour
 
     public void AdddItemsToInventory()
     {
-        InventoryScript.MyInstance.AddItem(craftItemInfo.MyItem);
+        if (InventoryScript.MyInstance.AddItem(craftItemInfo.MyItem))
+        {
+            foreach (CraftingMaterial material in selectedRecipe.Materials)
+            {
+                for (int i = 0; i < material.MyCount; i++)
+                {
+                    InventoryScript.MyInstance.RemoveItem(material.MyItem);
+                }
+            }
+        }
+
+      
     }
 }
