@@ -125,11 +125,11 @@ public class InventoryScript : MonoBehaviour
             AddItem(bag);
 
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            HealthPotion potion = (HealthPotion)Instantiate(items[9]);
-            AddItem(potion);
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    HealthPotion potion = (HealthPotion)Instantiate(items[9]);
+        //    AddItem(potion);
+        //}
         if (Input.GetKeyDown(KeyCode.U))
         {
             GoldNugget nugget = (GoldNugget)Instantiate(items[11]);
