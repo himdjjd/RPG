@@ -90,7 +90,7 @@ public class InventoryScript : MonoBehaviour
 
             if (value != null)
             {
-                fromSlot.MyIcon.color = Color.grey;
+                fromSlot.MyCover.enabled = true;
             }
         }
     }

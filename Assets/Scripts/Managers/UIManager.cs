@@ -222,25 +222,25 @@ public class UIManager : MonoBehaviour
         if (clickable.MyCount > 1) //If our slot has more than one item on it
         {
             clickable.MyStackText.text = clickable.MyCount.ToString();
-            clickable.MyStackText.color = Color.white;
-            clickable.MyIcon.color = Color.white;
+            clickable.MyStackText.enabled = true;
+            clickable.MyIcon.enabled = true;
         }
         else //If it only has 1 item on it
         {
-            clickable.MyStackText.color = new Color(0, 0, 0, 0);
-            clickable.MyIcon.color = Color.white;
+            clickable.MyStackText.enabled = false;
+            clickable.MyIcon.enabled = true;
         }
         if (clickable.MyCount == 0) //If the slot is empty, then we need to hide the icon
         {
-            clickable.MyIcon.color = new Color(0, 0, 0, 0);
-            clickable.MyStackText.color = new Color(0, 0, 0, 0);
+            clickable.MyStackText.enabled = false;
+            clickable.MyIcon.enabled = false;
         }
     }
 
     public void ClearStackCount(IClickable clickable)
     {
-        clickable.MyStackText.color = new Color(0, 0, 0, 0);
-        clickable.MyIcon.color = Color.white;
+        clickable.MyStackText.enabled = false;
+        clickable.MyIcon.enabled = true;
     }
 
     /// <summary>

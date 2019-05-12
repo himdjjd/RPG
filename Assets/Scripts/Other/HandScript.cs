@@ -69,21 +69,21 @@ public class HandScript : MonoBehaviour
     {
         this.MyMoveable = moveable;
         icon.sprite = moveable.MyIcon;
-        icon.color = Color.white;
+        icon.enabled = true;
     }
 
     public IMoveable Put()
     {
         IMoveable tmp = MyMoveable;
         MyMoveable = null;
-        icon.color = new Color(0, 0, 0, 0);
+        icon.enabled = false;
         return tmp;
     }
 
     public void Drop()
     {
         MyMoveable = null;
-        icon.color = new Color(0, 0, 0, 0);
+        icon.enabled = false;
         InventoryScript.MyInstance.FromSlot = null;
     }
 

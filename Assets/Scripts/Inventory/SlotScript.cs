@@ -16,6 +16,9 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     private Image icon;
 
     [SerializeField]
+    private Image cover;
+
+    [SerializeField]
     private Text stackSize;
 
     /// <summary>
@@ -110,6 +113,14 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         get
         {
             return items;
+        }
+    }
+
+    public Image MyCover
+    {
+        get
+        {
+            return cover;
         }
     }
 
@@ -210,6 +221,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         MyItems.Push(item);
         icon.sprite = item.MyIcon;
         icon.color = Color.white;
+        MyCover.enabled = false;
         item.MySlot = this;
         return true;
     }
@@ -256,7 +268,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     public void Clear()
     {
         int initCount = MyItems.Count;
-
+        MyCover.enabled = false;
         if (initCount > 0)
         {
             for (int i = 0; i < initCount; i++)
@@ -305,9 +317,10 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     /// <returns></returns>
     private bool PutItemBack()
     {
+        MyCover.enabled = false;
         if (InventoryScript.MyInstance.FromSlot == this)
         {
-            InventoryScript.MyInstance.FromSlot.MyIcon.color = Color.white;
+            InventoryScript.MyInstance.FromSlot.MyIcon.enabled = true;
             return true;
         }
 
@@ -321,6 +334,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
     /// <returns></returns>
     private bool SwapItems(SlotScript from)
     {
+        from.MyCover.enabled = false;
         if (IsEmpty)
         {
             return false;
