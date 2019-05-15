@@ -311,8 +311,9 @@ public class SaveManager : MonoBehaviour
         catch (System.Exception)
         {
             //This is for handling errors
-
-            throw;
+            Delete(savedGame);
+            PlayerPrefs.DeleteKey("Load");
+            SceneManager.LoadScene(0);
         }
     }
 

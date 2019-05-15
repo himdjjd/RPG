@@ -115,7 +115,7 @@ public class InventoryScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             Bag bag = (Bag)Instantiate(items[8]);
-            bag.Initialize(8);
+            bag.Initialize(40);
             AddItem(bag);
         }
         if (Input.GetKeyDown(KeyCode.K))//Debugging for adding a bag to the inventory
@@ -182,6 +182,7 @@ public class InventoryScript : MonoBehaviour
     {
         bag.SetupScript();
         MyBags.Add(bag);
+        bag.MyBagScript.MyBagIndex = bagIndex;
         bag.MyBagButton = bagButtons[bagIndex];
         bagButtons[bagIndex].MyBag = bag;
     }
