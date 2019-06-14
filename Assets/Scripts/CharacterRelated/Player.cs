@@ -75,6 +75,8 @@ public class Player : Character
 
     private Vector3 destination;
 
+    private Vector3 current;
+
     private Vector3 goal;
 
     [SerializeField]
@@ -242,6 +244,15 @@ public class Player : Character
         }
 
 
+    }
+
+    public override void Move()
+    {
+        if (path == null)
+        {
+            base.Move();
+        }
+    
     }
 
     /// <summary>
@@ -476,6 +487,7 @@ public class Player : Character
     public void GetPath(Vector3 goal)
     {
         path = astar.Algorithm(transform.position, goal);
+        current = path.Pop();
         destination = path.Pop();
         this.goal = goal;
     }
@@ -487,8 +499,30 @@ public class Player : Character
             //Moves the enemy towards the target
             transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, 2 * Time.deltaTime);
 
+            Vector3Int dest = astar.MyTilemap.WorldToCell(destination);
+            Vector3Int cur = astar.MyTilemap.WorldToCell(current);
+
             float distance = Vector2.Distance(destination, transform.parent.position);
 
+            if (cur.y > dest.y)
+            {
+                Direction = Vector2.down;
+            }
+            else if (cur.y < dest.y)
+            {
+                Direction = Vector2.up;
+            }
+            if (cur.y == dest.y)
+            {
+                if (cur.x > dest.x)
+                {
+                    Direction = Vector2.left;
+                }
+                else if (cur.x < dest.x)
+                {
+                    Direction = Vector2.right;
+                }
+            }
             if (distance <= 0f)
             {
                 if (path.Count > 0)

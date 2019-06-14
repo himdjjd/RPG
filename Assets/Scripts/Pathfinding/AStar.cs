@@ -23,10 +23,18 @@ public class AStar : MonoBehaviour
 
     private Vector3Int startPos, goalPos;
 
+    public Tilemap MyTilemap
+    {
+        get
+        {
+            return tilemap;
+        }
+    }
+
     public Stack<Vector3> Algorithm(Vector3 start, Vector3 goal)
     {
-        startPos = tilemap.WorldToCell(start);
-        goalPos = tilemap.WorldToCell(goal);
+        startPos = MyTilemap.WorldToCell(start);
+        goalPos = MyTilemap.WorldToCell(goal);
 
         current = GetNode(startPos);
 
@@ -35,6 +43,13 @@ public class AStar : MonoBehaviour
 
         //Creates a closed list for nodes that we have examined
         closedList = new HashSet<Node>();
+
+        foreach (KeyValuePair<Vector3Int, Node> node in allNodes)
+        {
+            node.Value.Parent = null;
+        }
+
+        allNodes.Clear();
 
         //Adds the current node to the open list (we have examined it)
         openList.Add(current);
@@ -182,10 +197,10 @@ public class AStar : MonoBehaviour
             Stack<Vector3> finalPath = new Stack<Vector3>();
 
             //Adds the nodes to the final path
-            while (current.Position != startPos)
+            while (current != null)
             {
                 //Adds the current node to the final path
-                finalPath.Push(tilemap.CellToWorld(current.Position));
+                finalPath.Push(MyTilemap.CellToWorld(current.Position));
                 //Find the parent of the node, this is actually retracing the whole path back to start
                 //By doing so, we will end up with a complete path.
                 current = current.Parent;

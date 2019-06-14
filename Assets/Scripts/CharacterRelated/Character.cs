@@ -5,7 +5,6 @@ using UnityEngine;
 /// <summary>
 /// This is an abstract class that all characters needs to inherit from
 /// </summary>
-[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 public abstract class Character : MonoBehaviour
 {
@@ -35,6 +34,7 @@ public abstract class Character : MonoBehaviour
     /// <summary>
     /// The Character's rigidbody
     /// </summary>
+    [SerializeField]
     private Rigidbody2D myRigidbody;
 
     /// <summary>
@@ -134,9 +134,6 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void Start()
     {
-        //Makes a reference to the rigidbody2D
-        myRigidbody = GetComponent<Rigidbody2D>();
-
         //Makes a reference to the character's animator
         MyAnimator = GetComponent<Animator>();
     }
@@ -157,7 +154,7 @@ public abstract class Character : MonoBehaviour
     /// <summary>
     /// Moves the player
     /// </summary>
-    public void Move()
+    public virtual void Move()
     {
         if (IsAlive)
         {
