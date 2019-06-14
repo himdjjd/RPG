@@ -527,6 +527,7 @@ public class Player : Character
             {
                 if (path.Count > 0)
                 {
+                    current = destination;
                     destination = path.Pop();
                 }
                 else

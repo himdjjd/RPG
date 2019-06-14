@@ -21,6 +21,10 @@ public class AStar : MonoBehaviour
 
     private Dictionary<Vector3Int, Node> allNodes = new Dictionary<Vector3Int, Node>();
 
+    private static HashSet<Vector3Int> noDiagonalTiles = new HashSet<Vector3Int>();
+
+
+
     private Vector3Int startPos, goalPos;
 
     public Tilemap MyTilemap
@@ -28,6 +32,14 @@ public class AStar : MonoBehaviour
         get
         {
             return tilemap;
+        }
+    }
+
+    public static HashSet<Vector3Int> NoDiagonalTiles
+    {
+        get
+        {
+            return noDiagonalTiles;
         }
     }
 
@@ -114,10 +126,12 @@ public class AStar : MonoBehaviour
             }
 
             int gScore = DetermineGScore(neighbour.Position, current.Position);
-            //if (gScore == 14)
-            //{
-            //    continue;
-            //}
+
+            if (gScore == 14 && NoDiagonalTiles.Contains(neighbour.Position) && NoDiagonalTiles.Contains(current.Position))
+            {
+                continue;
+            }
+
             if (openList.Contains(neighbour))
             {
                 if (current.G + gScore < neighbour.G)
