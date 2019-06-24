@@ -26,6 +26,9 @@ public class Enemy : Character, IInteractable
     [SerializeField]
     private LootTable lootTable;
 
+    [SerializeField]
+    private AStar astar;
+
     /// <summary>
     /// The enemys attack range
     /// </summary>
@@ -61,7 +64,15 @@ public class Enemy : Character, IInteractable
             return Vector2.Distance(transform.position, MyTarget.position) < MyAggroRange;
         }
     }
-    
+
+    public AStar MyAstar
+    {
+        get
+        {
+            return astar;
+        }
+    }
+
     protected void Awake()
     {
         health.Initialize(initHealth, initHealth);
