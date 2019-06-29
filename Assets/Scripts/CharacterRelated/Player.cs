@@ -163,6 +163,11 @@ public class Player : Character
         base.Update();
     }
 
+    protected void FixedUpdate()
+    {
+        Move();
+    }
+
     public void SetDefaultValues()
     {
         MyGold = 1000;
@@ -244,15 +249,6 @@ public class Player : Character
         }
 
 
-    }
-
-    public override void Move()
-    {
-        if (path == null)
-        {
-            base.Move();
-        }
-    
     }
 
     /// <summary>
@@ -539,6 +535,23 @@ public class Player : Character
 
     }
 
+    /// <summary>
+    /// Moves the player
+    /// </summary>
+    public void Move()
+    {
+        if (path == null)
+        {
+            if (IsAlive)
+            {
+                //Makes sure that the player moves
+                myRigidbody.velocity = Direction.normalized * Speed;
+            }
+        }
+
+ 
+
+    }
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy" ||collision.tag== "Interactable")
