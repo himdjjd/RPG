@@ -26,6 +26,10 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     public Animator MyAnimator { get; set; }
 
+    public Transform MyCurrentTile { get; set; }
+
+    public Stack<Vector3> MyPath { get; set; }
+
     /// <summary>
     /// The Player's direction
     /// </summary>

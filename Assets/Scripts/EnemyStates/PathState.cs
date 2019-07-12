@@ -16,35 +16,51 @@ public class PathState : IState
 
     private Enemy parent;
 
+    private Vector3 targetPos;
+
     public void Enter(Enemy parent)
     {
         this.parent = parent;
 
-        this.transform = parent.transform;
+        this.transform = parent.transform.parent;
 
-        path = parent.MyAstar.Algorithm(parent.transform.parent.position, parent.MyTarget.position);
+        targetPos = Player.MyInstance.MyCurrentTile.position;
 
-        current = path.Pop();
-        destination = path.Pop();
-        this.goal = parent.MyTarget.parent.position;
+        if (targetPos != parent.MyCurrentTile.position) //Makes sure that we aren't standing on the target position
+        {
+            path = parent.MyAstar.Algorithm(parent.MyCurrentTile.position, targetPos);
+        }
+        if (path != null)
+        {
+            current = path.Pop();
+            destination = path.Pop();
+            this.goal = parent.MyCurrentTile.position;
+        }
+        else
+        {
+            parent.ChangeState(new EvadeState());
+        }
+        
+
+
     }
 
     public void Exit()
     {
-        
+        path = null;
     }
 
     public void Update()
     {
         if (path != null)
         {
-            transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, 2 * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, destination, 2 * Time.deltaTime);
 
            
             Vector3Int dest = parent.MyAstar.MyTilemap.WorldToCell(destination);
             Vector3Int cur = parent.MyAstar.MyTilemap.WorldToCell(current);
 
-            float distance = Vector2.Distance(destination, transform.parent.position);
+            float distance = Vector2.Distance(destination, transform.position);
 
             if (cur.y > dest.y)
             {
@@ -71,10 +87,17 @@ public class PathState : IState
                 {
                     current = destination;
                     destination = path.Pop();
+
+                    if (targetPos != Player.MyInstance.MyCurrentTile.position) //Then the player has moved
+                    {
+                        parent.ChangeState(new PathState());
+                    }
                 }
                 else
                 {
                     path = null;
+
+                    parent.ChangeState(new PathState());
                 }
             }
         }
