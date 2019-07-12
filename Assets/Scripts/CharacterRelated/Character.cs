@@ -28,8 +28,6 @@ public abstract class Character : MonoBehaviour
 
     public Transform MyCurrentTile { get; set; }
 
-    public Stack<Vector3> MyPath { get; set; }
-
     /// <summary>
     /// The Player's direction
     /// </summary>
@@ -39,7 +37,7 @@ public abstract class Character : MonoBehaviour
     /// The Character's rigidbody
     /// </summary>
     [SerializeField]
-    private Rigidbody2D myRigidbody;
+    protected Rigidbody2D myRigidbody;
 
     /// <summary>
     /// indicates if the character is attacking or not
@@ -150,23 +148,8 @@ public abstract class Character : MonoBehaviour
         HandleLayers();
 	}
 
-    private void FixedUpdate()
-    {
-        Move();
-    }
 
-    /// <summary>
-    /// Moves the player
-    /// </summary>
-    public virtual void Move()
-    {
-        if (IsAlive)
-        {
-            //Makes sure that the player moves
-            myRigidbody.velocity = Direction.normalized * Speed;
-        }
- 
-    }
+  
 
     /// <summary>
     /// Makes sure that the right animation layer is playing

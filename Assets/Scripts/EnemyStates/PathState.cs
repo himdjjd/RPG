@@ -14,7 +14,6 @@ public class PathState : IState
 
     private Transform transform;
 
-<<<<<<< HEAD
     private Enemy parent;
 
     private Vector3 targetPos;
@@ -27,7 +26,7 @@ public class PathState : IState
 
         targetPos = Player.MyInstance.MyCurrentTile.position;
 
-        if (targetPos != parent.MyCurrentTile.position) //Makes sure that we aren't standing on the target position
+        if (targetPos != parent.MyCurrentTile.position)
         {
             path = parent.MyAstar.Algorithm(parent.MyCurrentTile.position, targetPos);
         }
@@ -41,14 +40,9 @@ public class PathState : IState
         {
             parent.ChangeState(new EvadeState());
         }
-        
-=======
-    public void Enter(Enemy parent)
-    {
-        this.transform = parent.transform;
->>>>>>> parent of 4228c6c... 29.1
+       
 
-
+   
     }
 
     public void Exit()
@@ -62,16 +56,31 @@ public class PathState : IState
         {
             transform.position = Vector2.MoveTowards(transform.position, destination, 2 * Time.deltaTime);
 
-<<<<<<< HEAD
            
             Vector3Int dest = parent.MyAstar.MyTilemap.WorldToCell(destination);
             Vector3Int cur = parent.MyAstar.MyTilemap.WorldToCell(current);
 
             float distance = Vector2.Distance(destination, transform.position);
-=======
-            float distance = Vector2.Distance(destination, transform.parent.position);
->>>>>>> parent of 4228c6c... 29.1
 
+            if (cur.y > dest.y)
+            {
+                parent.Direction = Vector2.down;
+            }
+            else if (cur.y < dest.y)
+            {
+                parent.Direction = Vector2.up;
+            }
+            if (cur.y == dest.y)
+            {
+                if (cur.x > dest.x)
+                {
+                    parent.Direction = Vector2.left;
+                }
+                else if (cur.x < dest.x)
+                {
+                    parent.Direction = Vector2.right;
+                }
+            }
             if (distance <= 0f)
             {
                 if (path.Count > 0)
@@ -87,7 +96,6 @@ public class PathState : IState
                 else
                 {
                     path = null;
-
                     parent.ChangeState(new PathState());
                 }
             }

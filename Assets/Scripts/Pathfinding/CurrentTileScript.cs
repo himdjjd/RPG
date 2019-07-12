@@ -7,7 +7,7 @@ public class CurrentTileScript : MonoBehaviour
     [SerializeField]
     private Character character;
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Ground")
         {
