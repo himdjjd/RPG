@@ -19,9 +19,7 @@ public class AttackState : IState
     /// <param name="parent"></param>
     public void Enter(Enemy parent)
     {
-       
         this.parent = parent; 
-        
     }
 
     public void Exit()
@@ -47,12 +45,12 @@ public class AttackState : IState
             float distance = Vector2.Distance(parent.MyTarget.position, parent.transform.position);
 
             //If the distance is larget than the attackrange, then we need to move
-            if (distance >= parent.MyAttackRange + extraRange && !parent.IsAttacking)
+            if (distance >= parent.MyAttackRange+extraRange && !parent.IsAttacking)
             {
                 //Follows the target
                 parent.ChangeState(new FollowState());
             }
-
+       
 
         }
         else//If we lost the target then we need to idle
