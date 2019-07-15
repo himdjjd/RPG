@@ -28,6 +28,8 @@ public abstract class Character : MonoBehaviour
 
     public Transform MyCurrentTile { get; set; }
 
+    public SpriteRenderer MySpriteRenderer { get; set; }
+
     /// <summary>
     /// The Player's direction
     /// </summary>
@@ -37,7 +39,7 @@ public abstract class Character : MonoBehaviour
     /// The Character's rigidbody
     /// </summary>
     [SerializeField]
-    protected Rigidbody2D myRigidbody;
+    private Rigidbody2D myRigidbody;
 
     /// <summary>
     /// indicates if the character is attacking or not
@@ -56,6 +58,8 @@ public abstract class Character : MonoBehaviour
     protected Stat health;
 
     public Transform MyTarget { get; set; }
+
+    public Stack<Vector3> MyPath { get; set; }
 
     public Stat MyHealth
     {
@@ -134,10 +138,19 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    public Rigidbody2D MyRigidbody
+    {
+        get
+        {
+            return myRigidbody;
+        }
+    }
+
     protected virtual void Start()
     {
         //Makes a reference to the character's animator
         MyAnimator = GetComponent<Animator>();
+        MySpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -148,8 +161,26 @@ public abstract class Character : MonoBehaviour
         HandleLayers();
 	}
 
+    public void FixedUpdate()
+    {
+        Move();
+    }
 
-  
+
+    /// <summary>
+    /// Moves the player
+    /// </summary>
+    public void Move()
+    {
+        if (MyPath == null)
+        {
+            if (IsAlive)
+            {
+                //Makes sure that the player moves
+                MyRigidbody.velocity = Direction.normalized * Speed;
+            }
+        }
+    }
 
     /// <summary>
     /// Makes sure that the right animation layer is playing
@@ -211,7 +242,7 @@ public abstract class Character : MonoBehaviour
         {
             //Makes sure that the character stops moving when its dead
             Direction = Vector2.zero;
-            myRigidbody.velocity = Direction;
+            MyRigidbody.velocity = Direction;
             GameManager.MyInstance.OnKillConfirmed(this);
             MyAnimator.SetTrigger("die");
         }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PathState : IState
 {
-    private Stack<Vector3> path;
-
     private Vector3 destination;
 
     private Vector3 current;
@@ -28,12 +26,12 @@ public class PathState : IState
 
         if (targetPos != parent.MyCurrentTile.position)
         {
-            path = parent.MyAstar.Algorithm(parent.MyCurrentTile.position, targetPos);
+            parent.MyPath = parent.MyAstar.Algorithm(parent.MyCurrentTile.position, targetPos);
         }
-        if (path != null)
+        if (parent.MyPath != null)
         {
-            current = path.Pop();
-            destination = path.Pop();
+            current = parent.MyPath.Pop();
+            destination = parent.MyPath.Pop();
             this.goal = parent.MyCurrentTile.position;
         }
         else
@@ -47,12 +45,12 @@ public class PathState : IState
 
     public void Exit()
     {
-        path = null;
+        parent.MyPath = null;
     }
 
     public void Update()
     {
-        if (path != null)
+        if (parent.MyPath != null)
         {
             transform.position = Vector2.MoveTowards(transform.position, destination, 2 * Time.deltaTime);
 
@@ -61,6 +59,8 @@ public class PathState : IState
             Vector3Int cur = parent.MyAstar.MyTilemap.WorldToCell(current);
 
             float distance = Vector2.Distance(destination, transform.position);
+
+            float totalDistance = Vector2.Distance(parent.MyTarget.position, transform.position);
 
             if (cur.y > dest.y)
             {
@@ -81,12 +81,21 @@ public class PathState : IState
                     parent.Direction = Vector2.right;
                 }
             }
+            if (totalDistance <= parent.MyAttackRange)
+            {
+                parent.ChangeState(new AttackState());
+            }
+            else if (Player.MyInstance.MyCurrentTile.position == parent.MyCurrentTile.position)
+            {
+                parent.ChangeState(new FollowState());
+            }
+
             if (distance <= 0f)
             {
-                if (path.Count > 0)
+                if (parent.MyPath.Count > 0)
                 {
                     current = destination;
-                    destination = path.Pop();
+                    destination = parent.MyPath.Pop();
 
                     if (targetPos != Player.MyInstance.MyCurrentTile.position) //Then the player has moved
                     {
@@ -95,7 +104,7 @@ public class PathState : IState
                 }
                 else
                 {
-                    path = null;
+                    parent.MyPath = null;
                     parent.ChangeState(new PathState());
                 }
             }

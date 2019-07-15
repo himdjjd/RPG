@@ -71,8 +71,6 @@ public class Player : Character
 
     #region PATHFINDING
 
-    private Stack<Vector3> path;
-
     private Vector3 destination;
 
     private Vector3 current;
@@ -161,11 +159,6 @@ public class Player : Character
             transform.position.z);
 
         base.Update();
-    }
-
-    protected void FixedUpdate()
-    {
-        Move();
     }
 
     public void SetDefaultValues()
@@ -482,15 +475,15 @@ public class Player : Character
 
     public void GetPath(Vector3 goal)
     {
-        path = astar.Algorithm(transform.position, goal);
-        current = path.Pop();
-        destination = path.Pop();
+        MyPath = astar.Algorithm(transform.position, goal);
+        current = MyPath.Pop();
+        destination = MyPath.Pop();
         this.goal = goal;
     }
 
     public void ClickToMove()
     {
-        if (path != null)
+        if (MyPath != null)
         {
             //Moves the enemy towards the target
             transform.parent.position = Vector2.MoveTowards(transform.parent.position, destination, 2 * Time.deltaTime);
@@ -521,37 +514,21 @@ public class Player : Character
             }
             if (distance <= 0f)
             {
-                if (path.Count > 0)
+                if (MyPath.Count > 0)
                 {
                     current = destination;
-                    destination = path.Pop();
+                    destination = MyPath.Pop();
                 }
                 else
                 {
-                    path = null;
+                    MyPath = null;
                 }
             }
         }
 
     }
 
-    /// <summary>
-    /// Moves the player
-    /// </summary>
-    public void Move()
-    {
-        if (path == null)
-        {
-            if (IsAlive)
-            {
-                //Makes sure that the player moves
-                myRigidbody.velocity = Direction.normalized * Speed;
-            }
-        }
 
- 
-
-    }
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy" ||collision.tag== "Interactable")
