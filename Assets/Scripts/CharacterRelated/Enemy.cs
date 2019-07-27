@@ -29,6 +29,12 @@ public class Enemy : Character, IInteractable
     [SerializeField]
     private AStar astar;
 
+    //This is tmp for testing, later we will base damage on stats
+    [SerializeField]
+    private int damage;
+
+    private bool canDoDamage = true;
+
     /// <summary>
     /// The enemys attack range
     /// </summary>
@@ -96,6 +102,11 @@ public class Enemy : Character, IInteractable
             }
 
             currentState.Update();
+
+            if (MyTarget != null && !Player.MyInstance.IsAlive)
+            {
+                ChangeState(new EvadeState());
+            }
         }
 
         base.Update();
@@ -155,6 +166,22 @@ public class Enemy : Character, IInteractable
         }
 
     }
+
+    public void DoDamage()
+    {
+        if (canDoDamage)
+        {
+            Player.MyInstance.TakeDamage(damage, transform);
+            canDoDamage = false;
+        }
+      
+    }
+
+    public void CanDoDamage()
+    {
+        canDoDamage = true;
+    }
+       
 
     /// <summary>
     /// Changes the enemys state
