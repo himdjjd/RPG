@@ -42,6 +42,8 @@ public class Player : Character
     /// </summary>
     private float initMana = 50;
 
+    private Vector2 initPos;
+
     /// <summary>
     /// An array of blocks used for blocking the player's sight
     /// </summary>
@@ -168,6 +170,7 @@ public class Player : Character
         MyMana.Initialize(initMana, initMana);
         MyXp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
         levelText.text = MyLevel.ToString();
+        initPos = transform.parent.position;
     }
 
     /// <summary>
@@ -479,6 +482,17 @@ public class Player : Character
         current = MyPath.Pop();
         destination = MyPath.Pop();
         this.goal = goal;
+    }
+
+    public IEnumerator Respawn()
+    {
+        MySpriteRenderer.enabled = false;
+        yield return new WaitForSeconds(5f);
+        health.Initialize(initHealth, initHealth);
+        MyMana.Initialize(initMana, initMana);
+        transform.parent.position = initPos;
+        MySpriteRenderer.enabled = true;
+        MyAnimator.SetTrigger("respawn");
     }
 
     public void ClickToMove()
