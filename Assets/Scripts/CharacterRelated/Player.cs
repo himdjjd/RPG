@@ -44,6 +44,9 @@ public class Player : Character
 
     private Vector2 initPos;
 
+    [SerializeField]
+    private SpriteRenderer[] gearRenderers;
+
     /// <summary>
     /// An array of blocks used for blocking the player's sight
     /// </summary>
@@ -493,6 +496,10 @@ public class Player : Character
         transform.parent.position = initPos;
         MySpriteRenderer.enabled = true;
         MyAnimator.SetTrigger("respawn");
+        foreach (SpriteRenderer spriteRenderer in gearRenderers)
+        {
+            spriteRenderer.enabled = true;
+        }
     }
 
     public void ClickToMove()
@@ -542,6 +549,13 @@ public class Player : Character
 
     }
 
+    public void HideGear()
+    {
+        foreach (SpriteRenderer spriteRenderer in gearRenderers)
+        {
+            spriteRenderer.enabled = false;
+        }
+    }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
