@@ -31,14 +31,16 @@ public class Enemy : Character, IInteractable
 
     //This is tmp for testing, later we will base damage on stats
     [SerializeField]
-    private int damage;
+    protected int damage;
 
     private bool canDoDamage = true;
 
     /// <summary>
     /// The enemys attack range
     /// </summary>
-    public float MyAttackRange { get; set; }
+    [SerializeField]
+    private float attackRange;
+  
 
     /// <summary>
     /// How much time has passed since the last attack
@@ -79,6 +81,19 @@ public class Enemy : Character, IInteractable
         }
     }
 
+    public float MyAttackRange
+    {
+        get
+        {
+            return attackRange;
+        }
+
+        set
+        {
+            attackRange = value;
+        }
+    }
+
     protected void Awake()
     {
         health.Initialize(initHealth, initHealth);
@@ -87,8 +102,13 @@ public class Enemy : Character, IInteractable
         sr.enabled = true;
         MyStartPosition = transform.position;
         MyAggroRange = initAggroRange;
-        MyAttackRange = 1;
         ChangeState(new IdleState());
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        MyAnimator.SetFloat("y", -1);
     }
 
     protected override void Update()

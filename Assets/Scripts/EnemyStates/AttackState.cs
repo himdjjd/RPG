@@ -51,8 +51,17 @@ public class AttackState : IState
             //If the distance is larget than the attackrange, then we need to move
             if (distance >= parent.MyAttackRange + extraRange && !parent.IsAttacking)
             {
-                //Follows the target
-                parent.ChangeState(new FollowState());
+                if (parent is RangedEnemy)
+                {
+                    
+                    parent.ChangeState(new PathState());
+                }
+                else
+                {
+                    //Follows the target
+                    parent.ChangeState(new FollowState());
+                }
+               
             }
 
 
