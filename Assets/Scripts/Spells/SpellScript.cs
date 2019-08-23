@@ -20,7 +20,7 @@ public class SpellScript : MonoBehaviour {
     /// </summary>
     public Transform MyTarget { get; private set; }
 
-    private Transform source;
+    private Character source;
 
     private int damage;
 
@@ -31,7 +31,7 @@ public class SpellScript : MonoBehaviour {
         myRigidBody = GetComponent<Rigidbody2D>();
 	}
 
-    public void Initialize(Transform target, int damage, Transform source)
+    public void Initialize(Transform target, int damage, Character source)
     {
         this.MyTarget = target;
         this.damage = damage;

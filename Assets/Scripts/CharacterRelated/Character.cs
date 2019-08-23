@@ -52,12 +52,12 @@ public abstract class Character : MonoBehaviour
     protected Coroutine actionRoutine;
 
     [SerializeField]
-    protected Transform hitBox;
+    private Transform hitBox;
 
     [SerializeField]
     protected Stat health;
 
-    public Transform MyTarget { get; set; }
+    public Character MyTarget { get; set; }
 
     public Stack<Vector3> MyPath { get; set; }
 
@@ -143,6 +143,19 @@ public abstract class Character : MonoBehaviour
         get
         {
             return myRigidbody;
+        }
+    }
+
+    public Transform MyHitbox
+    {
+        get
+        {
+            return hitBox;
+        }
+
+        set
+        {
+            hitBox = value;
         }
     }
 
@@ -232,7 +245,7 @@ public abstract class Character : MonoBehaviour
     /// Makes the character take damage
     /// </summary>
     /// <param name="damage"></param>
-    public virtual void TakeDamage(float damage, Transform source)
+    public virtual void TakeDamage(float damage, Character source)
     {
         health.MyCurrentValue -= damage;
 

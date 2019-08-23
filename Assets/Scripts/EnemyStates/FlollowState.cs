@@ -40,7 +40,7 @@ class FollowState : IState
             //Find the target's direction
             parent.Direction = ((parent.MyTarget.transform.position+ offset) - parent.transform.position).normalized;
 
-            float distance = Vector2.Distance(parent.MyTarget.position+offset, parent.transform.position);
+            float distance = Vector2.Distance(parent.MyTarget.transform.position+offset, parent.transform.position);
 
             string animName = parent.MySpriteRenderer.sprite.name;
 

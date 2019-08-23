@@ -267,7 +267,7 @@ public class Player : Character
     /// <returns></returns>
     private IEnumerator AttackRoutine(ICastable castable)
     {
-        Transform currentTarget = MyTarget;
+        Transform currentTarget = MyTarget.MyHitbox;
 
         yield return actionRoutine = StartCoroutine(ActionRoutine(castable));
 
@@ -277,7 +277,7 @@ public class Player : Character
 
             SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
 
-            s.Initialize(currentTarget, newSpell.MyDamage, transform);
+            s.Initialize(currentTarget, newSpell.MyDamage, this);
         }
 
         StopAction(); //Ends the attack

@@ -14,7 +14,7 @@ public class RangedEnemy : Enemy
     {
         SpellScript s = Instantiate(arrowPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
 
-        s.Initialize(MyTarget, damage, transform);
+        s.Initialize(MyTarget.MyHitbox, damage, this);
     }
 
 }

@@ -69,7 +69,7 @@ public class Enemy : Character, IInteractable
     {
         get
         {
-            return Vector2.Distance(transform.position, MyTarget.position) < MyAggroRange;
+            return Vector2.Distance(transform.position, MyTarget.transform.position) < MyAggroRange;
         }
     }
 
@@ -137,12 +137,12 @@ public class Enemy : Character, IInteractable
     /// When the enemy is selected
     /// </summary>
     /// <returns></returns>
-    public Transform Select()
+    public Character Select()
     {
         //Shows the health bar
         healthGroup.alpha = 1;
 
-        return hitBox;
+        return this;
     }
 
     /// <summary>
@@ -164,7 +164,7 @@ public class Enemy : Character, IInteractable
     /// Makes the enemy take damage when hit
     /// </summary>
     /// <param name="damage"></param>
-    public override void TakeDamage(float damage, Transform source)
+    public override void TakeDamage(float damage, Character source)
     {
         if (!(currentState is EvadeState))
         {
@@ -191,7 +191,7 @@ public class Enemy : Character, IInteractable
     {
         if (canDoDamage)
         {
-            Player.MyInstance.TakeDamage(damage, transform);
+            MyTarget.TakeDamage(damage, this);
             canDoDamage = false;
         }
       
@@ -221,11 +221,11 @@ public class Enemy : Character, IInteractable
         currentState.Enter(this);
     }
 
-    public void SetTarget(Transform target)
+    public void SetTarget(Character target)
     {
         if (MyTarget == null && !(currentState is EvadeState))
         {
-            float distance = Vector2.Distance(transform.position, target.position);
+            float distance = Vector2.Distance(transform.position, target.transform.position);
             MyAggroRange = initAggroRange;
             MyAggroRange += distance;
             MyTarget = target;

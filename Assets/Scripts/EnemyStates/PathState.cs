@@ -54,13 +54,14 @@ public class PathState : IState
         {
             transform.position = Vector2.MoveTowards(transform.position, destination, 2 * Time.deltaTime);
 
+            parent.ActivateLayer("WalkLayer");
            
             Vector3Int dest = parent.MyAstar.MyTilemap.WorldToCell(destination);
             Vector3Int cur = parent.MyAstar.MyTilemap.WorldToCell(current);
 
             float distance = Vector2.Distance(destination, transform.position);
 
-            float totalDistance = Vector2.Distance(parent.MyTarget.position, transform.position);
+            float totalDistance = Vector2.Distance(parent.MyTarget.transform.parent.position, transform.position);
 
             if (cur.y > dest.y)
             {
