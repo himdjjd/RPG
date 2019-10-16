@@ -6,11 +6,30 @@ using UnityEngine.UI;
 public class TalentTree : MonoBehaviour
 {
 
+    private int points = 10;
+
     [SerializeField]
     private Talent[] talents;
 
     [SerializeField]
     private Talent[] unlockedByDefault;
+
+    [SerializeField]
+    private Text talentPointText;
+
+    public int MyPoints
+    {
+        get
+        {
+            return points;
+        }
+
+        set
+        {
+            points = value;
+            UpdateTalentPointText();
+        }
+    }
 
 
 
@@ -20,9 +39,19 @@ public class TalentTree : MonoBehaviour
         ResetTalents();
     }
 
+    public void TryUseTalent(Talent talent)
+    {
+        if (MyPoints > 0 && talent.Click())
+        {
+            MyPoints--;
+        }
+    }
+
 
     private void ResetTalents()
     {
+        UpdateTalentPointText();
+
         foreach (Talent talent in talents)
         {
             talent.Lock();
@@ -32,5 +61,10 @@ public class TalentTree : MonoBehaviour
         {
             talent.Unlock();
         }
+    }
+
+    private void UpdateTalentPointText()
+    {
+        talentPointText.text = points.ToString();
     }
 }

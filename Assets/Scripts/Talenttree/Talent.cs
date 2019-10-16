@@ -10,10 +10,27 @@ public class Talent : MonoBehaviour
     [SerializeField]
     private Text countText;
 
+    [SerializeField]
+    private int maxCount;
+
+    private int currentCount;
+
     private void Awake()
     {
         sprite = GetComponent<Image>();
 
+    }
+
+    public bool Click()
+    {
+        if (currentCount < maxCount)
+        {
+            currentCount++;
+            countText.text = $"{currentCount}/{maxCount}";
+            return true;
+        }
+
+        return false;
     }
 
     public void Lock()
