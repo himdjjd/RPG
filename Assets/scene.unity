@@ -1037,6 +1037,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countText: {fileID: 1424857343}
   maxCount: 3
+  unlocked: 1
+  childTalent: {fileID: 652716160}
+  arrowSpriteLocked: {fileID: 21300000, guid: f147fc0382bade14bb7d1cb9d110e013, type: 3}
+  arrowSpriteUnlocked: {fileID: 21300000, guid: 6f456d79f8a718946a98ab435d47d5a9,
+    type: 3}
+  arrowImage: {fileID: 0}
 --- !u!114 &82051211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4796,7 +4802,7 @@ Tilemap:
   - first: {x: 10, y: 8, z: 0}
     second:
       m_TileIndex: 0
-      m_TileSpriteIndex: 17
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -5025,8 +5031,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 2
-    m_Data: {fileID: 21300000, guid: d49893fe18b88fe46a7bc19adf7c23f4, type: 3}
+  - m_RefCount: 3
+    m_Data: {fileID: 21300000, guid: 5595cbe7794fde64c92264fdbcca6494, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: 44947ccac85f4b240b14f0397a51802c, type: 3}
   - m_RefCount: 3
@@ -5041,7 +5047,7 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 0871c419e99aa044b95908b5fc795dbe, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: bd4a7721e20d2e2449d3ae74ef9c4749, type: 3}
-  - m_RefCount: 5
+  - m_RefCount: 4
     m_Data: {fileID: 21300000, guid: 10ca68d6ccae9b044834179e9abf4794, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: c42e9e8b918fe12419547785989d47cd, type: 3}
@@ -5472,6 +5478,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countText: {fileID: 283904036}
   maxCount: 3
+  unlocked: 1
+  childTalent: {fileID: 1955626183}
+  arrowSpriteLocked: {fileID: 21300000, guid: f147fc0382bade14bb7d1cb9d110e013, type: 3}
+  arrowSpriteUnlocked: {fileID: 21300000, guid: 6f456d79f8a718946a98ab435d47d5a9,
+    type: 3}
+  arrowImage: {fileID: 0}
 --- !u!114 &315780280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10093,6 +10105,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countText: {fileID: 653817899}
   maxCount: 3
+  unlocked: 1
+  childTalent: {fileID: 1797892198}
+  arrowSpriteLocked: {fileID: 21300000, guid: f147fc0382bade14bb7d1cb9d110e013, type: 3}
+  arrowSpriteUnlocked: {fileID: 21300000, guid: 6f456d79f8a718946a98ab435d47d5a9,
+    type: 3}
+  arrowImage: {fileID: 0}
 --- !u!114 &549522979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11495,6 +11513,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countText: {fileID: 1264802487}
   maxCount: 3
+  unlocked: 0
+  childTalent: {fileID: 1437050597}
+  arrowSpriteLocked: {fileID: 21300000, guid: f147fc0382bade14bb7d1cb9d110e013, type: 3}
+  arrowSpriteUnlocked: {fileID: 21300000, guid: 6f456d79f8a718946a98ab435d47d5a9,
+    type: 3}
+  arrowImage: {fileID: 86839158}
 --- !u!114 &652716161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33148,6 +33172,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countText: {fileID: 1893496143}
   maxCount: 1
+  unlocked: 0
+  childTalent: {fileID: 0}
+  arrowSpriteLocked: {fileID: 21300000, guid: f147fc0382bade14bb7d1cb9d110e013, type: 3}
+  arrowSpriteUnlocked: {fileID: 21300000, guid: 6f456d79f8a718946a98ab435d47d5a9,
+    type: 3}
+  arrowImage: {fileID: 85567844}
 --- !u!114 &1437050598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33647,6 +33677,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countText: {fileID: 627239736}
   maxCount: 1
+  unlocked: 0
+  childTalent: {fileID: 0}
+  arrowSpriteLocked: {fileID: 21300000, guid: f147fc0382bade14bb7d1cb9d110e013, type: 3}
+  arrowSpriteUnlocked: {fileID: 21300000, guid: 6f456d79f8a718946a98ab435d47d5a9,
+    type: 3}
+  arrowImage: {fileID: 493626505}
 --- !u!114 &1457864393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34493,6 +34529,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countText: {fileID: 731372374}
   maxCount: 1
+  unlocked: 0
+  childTalent: {fileID: 0}
+  arrowSpriteLocked: {fileID: 21300000, guid: f147fc0382bade14bb7d1cb9d110e013, type: 3}
+  arrowSpriteUnlocked: {fileID: 21300000, guid: 6f456d79f8a718946a98ab435d47d5a9,
+    type: 3}
+  arrowImage: {fileID: 873229650}
 --- !u!114 &1492961115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40415,6 +40457,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countText: {fileID: 1285493125}
   maxCount: 3
+  unlocked: 0
+  childTalent: {fileID: 1457864392}
+  arrowSpriteLocked: {fileID: 21300000, guid: f147fc0382bade14bb7d1cb9d110e013, type: 3}
+  arrowSpriteUnlocked: {fileID: 21300000, guid: 6f456d79f8a718946a98ab435d47d5a9,
+    type: 3}
+  arrowImage: {fileID: 1048260781}
 --- !u!114 &1797892199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43545,6 +43593,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countText: {fileID: 1285484109}
   maxCount: 3
+  unlocked: 0
+  childTalent: {fileID: 1492961114}
+  arrowSpriteLocked: {fileID: 21300000, guid: f147fc0382bade14bb7d1cb9d110e013, type: 3}
+  arrowSpriteUnlocked: {fileID: 21300000, guid: 6f456d79f8a718946a98ab435d47d5a9,
+    type: 3}
+  arrowImage: {fileID: 1514145122}
 --- !u!114 &1955626184
 MonoBehaviour:
   m_ObjectHideFlags: 0

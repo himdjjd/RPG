@@ -45,6 +45,16 @@ public class TalentTree : MonoBehaviour
         {
             MyPoints--;
         }
+        if (MyPoints == 0)
+        {
+            foreach (Talent t in talents)
+            {
+                if (t.MyCurrentCount == 0)
+                {
+                    t.Lock();
+                }
+            }
+        }
     }
 
 
