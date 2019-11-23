@@ -54,15 +54,6 @@ public class UIManager : MonoBehaviour
     private RectTransform tooltipRect;
 
     /// <summary>
-    /// A reference to the keybind menu
-    /// </summary>
-    [SerializeField]
-    private CanvasGroup keybindMenu;
-
-    [SerializeField]
-    private CanvasGroup spellBook;
-
-    /// <summary>
     /// A reference to all the kibind buttons on the menu
     /// </summary>
     private GameObject[] keybindButtons;
@@ -105,6 +96,10 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             OpenClose(menus[6]);
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            OpenClose(menus[7]);
         }
 
 

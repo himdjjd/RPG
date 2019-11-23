@@ -56,7 +56,7 @@ public class Talent : MonoBehaviour
 
     }
 
-    public bool Click()
+    public virtual bool Click()
     {
         if (MyCurrentCount < maxCount && unlocked)
         {

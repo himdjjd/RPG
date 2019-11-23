@@ -106,6 +106,10 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
         {
             return castTime;
         }
+        set
+        {
+            castTime = value;
+        }
     }
 
     /// <summary>
