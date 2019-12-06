@@ -19,6 +19,9 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
     [SerializeField]
     private int damage;
 
+    [SerializeField]
+    private float range;
+
     /// <summary>
     /// The spell's icon
     /// </summary>
@@ -131,6 +134,19 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
         get
         {
             return barColor;
+        }
+    }
+
+    public float MyRange
+    {
+        get
+        {
+            return range;
+        }
+
+        set
+        {
+            range = value;
         }
     }
 

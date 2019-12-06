@@ -324,10 +324,21 @@ public class Player : Character
     {
         Block();
 
-        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive &&!IsAttacking && !IsMoving && InLineOfSight()) //Chcks if we are able to attack
+        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive &&!IsAttacking && !IsMoving && InLineOfSight() && InRange((castable as Spell),MyTarget.transform.position)) //Chcks if we are able to attack
         {
             MyInitRoutine = StartCoroutine(AttackRoutine(castable));
         }
+    }
+
+    private bool InRange(Spell spell, Vector2 targetPos)
+    {
+
+        if (Vector2.Distance(targetPos, transform.position) <= spell.MyRange)
+        {
+            return true;
+        }
+        MessageFeedManager.MyInstance.WriteMessage("OUT OF RANGE!", Color.red);
+        return false;
     }
 
     public void Gather(ICastable castable, List<Drop> items)

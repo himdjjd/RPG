@@ -1,24 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ImprovedFireball : Talent, IPointerEnterHandler, IPointerExitHandler, IDescribable
+public class ImprovedFrostbolt : Talent, IPointerEnterHandler, IPointerExitHandler, IDescribable
 {
     public override bool Click()
     {
         if (base.Click())
         {
             //Give the player the talent's ability
-            SpellBook.MyInstance.GetSpell("Fireball").MyCastTime -= 0.1f;
+            SpellBook.MyInstance.GetSpell("Frostbolt").MyRange += 1;
             return true;
         }
 
         return false;
-     
+
     }
 
     public string GetDescription()
     {
-        return string.Format("Improved Fireball\n<color=#ffd100>Reduces the casting time\nof your Fireball by 0.1 sec. </color>");
+        return string.Format("Improved Frostbolt\n<color=#ffd100>Increases the range\nof your Frostbolt by 1. </color>");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
