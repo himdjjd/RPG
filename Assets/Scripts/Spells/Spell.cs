@@ -17,7 +17,7 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
     /// The spell's damage
     /// </summary>
     [SerializeField]
-    private int damage;
+    private float damage;
 
     [SerializeField]
     private float range;
@@ -69,13 +69,16 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
     /// <summary>
     /// Property for reading the damage
     /// </summary>
-    public int MyDamage
+    public float MyDamage
     {
         get
         {
-            return damage;
+            return Mathf.Ceil(damage);
         }
-
+        set
+        {
+            damage = value;
+        }
     }
 
     /// <summary>
@@ -152,7 +155,7 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
 
     public string GetDescription()
     {
-        return string.Format("{0}\nCast time: {1} second(s)\n<color=#ffd111>{2}\nthat causes {3} damage</color>", title, castTime,description, damage);
+        return string.Format("{0}\nCast time: {1} second(s)\n<color=#ffd111>{2}\nthat causes {3} damage</color>", title, castTime,description, MyDamage);
     }
 
     public void Use()

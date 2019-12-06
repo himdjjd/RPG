@@ -22,7 +22,7 @@ public class SpellScript : MonoBehaviour {
 
     private Character source;
 
-    private int damage;
+    private float damage;
 
     // Use this for initialization
     void Start ()
@@ -31,7 +31,7 @@ public class SpellScript : MonoBehaviour {
         myRigidBody = GetComponent<Rigidbody2D>();
 	}
 
-    public void Initialize(Transform target, int damage, Character source)
+    public void Initialize(Transform target, float damage, Character source)
     {
         this.MyTarget = target;
         this.damage = damage;

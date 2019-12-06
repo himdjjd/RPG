@@ -15,7 +15,6 @@ public class Talent : MonoBehaviour
 
     private int currentCount;
     
-    [SerializeField]
     private bool unlocked;
 
     [SerializeField]
