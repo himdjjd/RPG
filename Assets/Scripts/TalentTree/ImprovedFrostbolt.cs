@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ImprovedFrostbolt : Talent, IPointerEnterHandler, IPointerExitHandler, IDescribable
+public class ImprovedFrostbolt : Talent
 {
     public override bool Click()
     {
@@ -16,18 +16,8 @@ public class ImprovedFrostbolt : Talent, IPointerEnterHandler, IPointerExitHandl
 
     }
 
-    public string GetDescription()
+    public override string GetDescription()
     {
         return string.Format("Improved Frostbolt\n<color=#ffd100>Increases the range\nof your Frostbolt by 1. </color>");
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        UIManager.MyInstance.ShowTooltip(new Vector2(1, 0), transform.position, this);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        UIManager.MyInstance.HideTooltip();
     }
 }

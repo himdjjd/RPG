@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Talent : MonoBehaviour
+public class Talent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDescribable
 {
     private Image sprite;
 
@@ -109,5 +110,21 @@ public class Talent : MonoBehaviour
         }
 
         unlocked = true;
+    }
+
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        UIManager.MyInstance.ShowTooltip(new Vector2(1, 0), transform.position, this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIManager.MyInstance.HideTooltip();
+    }
+
+    public virtual string GetDescription()
+    {
+        return string.Empty;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ImprovedThunderbolt : Talent, IPointerEnterHandler, IPointerExitHandler, IDescribable
+public class ImprovedThunderbolt : Talent
 {
     private int percent = 5;
 
@@ -20,18 +20,8 @@ public class ImprovedThunderbolt : Talent, IPointerEnterHandler, IPointerExitHan
 
     }
 
-    public string GetDescription()
+    public override string GetDescription()
     {
         return string.Format($"Improved Thunderbolt\n<color=#ffd100>Increas the damge\nof your Thunderbolt by {percent}%. </color>");
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        UIManager.MyInstance.ShowTooltip(new Vector2(1, 0), transform.position, this);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        UIManager.MyInstance.HideTooltip();
     }
 }

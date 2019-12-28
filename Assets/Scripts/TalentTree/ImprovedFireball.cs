@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ImprovedFireball : Talent, IPointerEnterHandler, IPointerExitHandler, IDescribable
+public class ImprovedFireball : Talent
 {
     public override bool Click()
     {
@@ -16,18 +16,9 @@ public class ImprovedFireball : Talent, IPointerEnterHandler, IPointerExitHandle
      
     }
 
-    public string GetDescription()
+    public override string GetDescription()
     {
         return string.Format("Improved Fireball\n<color=#ffd100>Reduces the casting time\nof your Fireball by 0.1 sec. </color>");
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        UIManager.MyInstance.ShowTooltip(new Vector2(1, 0), transform.position, this);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        UIManager.MyInstance.HideTooltip();
-    }
 }
