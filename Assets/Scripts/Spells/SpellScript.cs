@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Debuffs;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,12 +25,22 @@ public class SpellScript : MonoBehaviour {
 
     private float damage;
 
+    private Debuff debuff;
+
     // Use this for initialization
     void Start ()
     {
         //Creates a reference to the spell's rigidbody
         myRigidBody = GetComponent<Rigidbody2D>();
 	}
+
+    public void Initialize(Transform target, float damage, Character source, Debuff debuff)
+    {
+        this.MyTarget = target;
+        this.damage = damage;
+        this.source = source;
+        this.debuff = debuff;
+    }
 
     public void Initialize(Transform target, float damage, Character source)
     {
@@ -65,6 +76,12 @@ public class SpellScript : MonoBehaviour {
             Character c = collision.GetComponentInParent<Character>();
             speed = 0;
             c.TakeDamage(damage, source);
+
+            if (debuff != null)
+            {
+                debuff.Apply(c);
+            }
+
             GetComponent<Animator>().SetTrigger("impact");
             myRigidBody.velocity = Vector2.zero;
             MyTarget = null;

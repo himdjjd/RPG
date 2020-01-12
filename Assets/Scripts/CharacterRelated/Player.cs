@@ -277,7 +277,7 @@ public class Player : Character
 
             SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
 
-            s.Initialize(currentTarget, newSpell.MyDamage, this);
+            s.Initialize(currentTarget, newSpell.MyDamage, this,newSpell.MyDebuff);
         }
 
         StopAction(); //Ends the attack

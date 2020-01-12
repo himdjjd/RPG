@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Debuffs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,6 +55,8 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
     /// </summary>
     [SerializeField]
     private Color barColor;
+
+    public Debuff MyDebuff { get; set; }
 
     /// <summary>
     /// Property for accessing the spell's name

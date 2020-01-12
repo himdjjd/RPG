@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Debuffs;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,6 +61,12 @@ public abstract class Character : MonoBehaviour
     public Character MyTarget { get; set; }
 
     public Stack<Vector3> MyPath { get; set; }
+
+    private List<Debuff> debuffs = new List<Debuff>();
+
+    private List<Debuff> newDebuffs = new List<Debuff>();
+
+    private List<Debuff> expiredDebuffs = new List<Debuff>();
 
     public Stat MyHealth
     {
@@ -172,6 +179,8 @@ public abstract class Character : MonoBehaviour
     protected virtual void Update ()
     {
         HandleLayers();
+
+        HandleDebuffs();
 	}
 
     public void FixedUpdate()
@@ -226,6 +235,44 @@ public abstract class Character : MonoBehaviour
             ActivateLayer("DeathLayer");
         }
 
+    }
+
+    private void HandleDebuffs()
+    {
+
+        if (debuffs.Count > 0)
+        {
+            foreach (Debuff debuff in debuffs)
+            {
+                debuff.Update();
+            }
+        }
+
+        if (newDebuffs.Count > 0)
+        {
+            debuffs.AddRange(newDebuffs);
+            newDebuffs.Clear();
+        }
+
+        if (expiredDebuffs.Count > 0)
+        {
+            foreach (Debuff debuff in expiredDebuffs)
+            {
+                debuffs.Remove(debuff);
+            }
+
+            expiredDebuffs.Clear();
+        }
+    }
+
+    public void ApplyDebuff(Debuff debuff)
+    {
+        this.newDebuffs.Add(debuff);
+    }
+
+    public void RemoveDebuff(Debuff debuff)
+    {
+        this.expiredDebuffs.Add(debuff);
     }
 
     /// <summary>
