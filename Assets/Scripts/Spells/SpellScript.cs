@@ -79,7 +79,8 @@ public class SpellScript : MonoBehaviour {
 
             if (debuff != null)
             {
-                debuff.Apply(c);
+                Debuff clone = debuff.Clone();
+                clone.Apply(c);
             }
 
             GetComponent<Animator>().SetTrigger("impact");

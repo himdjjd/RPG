@@ -18,6 +18,11 @@ namespace Assets.Scripts.Debuffs
 
         protected Character character;
 
+        public abstract string Name
+        {
+            get;
+        }
+
         public virtual void Apply(Character character)
         {
             this.character = character;
@@ -39,5 +44,7 @@ namespace Assets.Scripts.Debuffs
                 Remove();
             }
         }
+
+        public abstract Debuff Clone();
     }
 }

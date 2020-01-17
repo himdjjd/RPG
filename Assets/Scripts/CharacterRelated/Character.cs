@@ -267,6 +267,16 @@ public abstract class Character : MonoBehaviour
 
     public void ApplyDebuff(Debuff debuff)
     {
+        //check if we have a debuff with the same name
+        Debuff tmp = debuffs.Find(x => x.Name == debuff.Name);
+
+        if (tmp != null) //If that's the case
+        {
+            //Then we remove the old debuff
+            expiredDebuffs.Add(tmp);
+        }
+
+        //Apply the new debuff
         this.newDebuffs.Add(debuff);
     }
 

@@ -11,6 +11,11 @@ namespace Assets.Scripts.Debuffs
     {
         public float MyTickDamage { get; set; }
 
+        public override string Name
+        {
+            get { return "Ignite"; }
+        }
+
         private float elapsed;
 
         public  IgniteDebuff()
@@ -36,6 +41,12 @@ namespace Assets.Scripts.Debuffs
         {
             elapsed = 0;
             base.Remove();
+        }
+
+        public override Debuff Clone()
+        {
+            IgniteDebuff clone = (IgniteDebuff)this.MemberwiseClone();
+            return clone;
         }
     }
 }
