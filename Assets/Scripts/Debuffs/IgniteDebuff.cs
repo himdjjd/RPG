@@ -21,7 +21,6 @@ namespace Assets.Scripts.Debuffs
         public  IgniteDebuff()
         {
             MyDuration = 20;
-            MyTickDamage = 5;
         }
 
         public override void Update()

@@ -14,6 +14,11 @@ public class IgniteTalent : Talent
 
     private string nextRank = string.Empty;
 
+    public void Start()
+    {
+        this.debuff.MyTickDamage = tickDamage;
+    }
+
     public override bool Click()
     {
         if (base.Click())
