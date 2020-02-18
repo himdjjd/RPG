@@ -52,7 +52,7 @@ public class PathState : IState
     {
         if (parent.MyPath != null)
         {
-            transform.position = Vector2.MoveTowards(transform.position, destination, 2 * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, destination, parent.Speed * Time.deltaTime);
 
             parent.ActivateLayer("WalkLayer");
            
