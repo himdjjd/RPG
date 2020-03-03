@@ -62,7 +62,7 @@ public abstract class Character : MonoBehaviour
 
     public Stack<Vector3> MyPath { get; set; }
 
-    private List<Debuff> debuffs = new List<Debuff>();
+    public List<Debuff> MyDebuffs { get; set; } = new List<Debuff>();
 
     private List<Debuff> newDebuffs = new List<Debuff>();
 
@@ -240,9 +240,9 @@ public abstract class Character : MonoBehaviour
     private void HandleDebuffs()
     {
 
-        if (debuffs.Count > 0)
+        if (MyDebuffs.Count > 0)
         {
-            foreach (Debuff debuff in debuffs)
+            foreach (Debuff debuff in MyDebuffs)
             {
                 debuff.Update();
             }
@@ -250,7 +250,7 @@ public abstract class Character : MonoBehaviour
 
         if (newDebuffs.Count > 0)
         {
-            debuffs.AddRange(newDebuffs);
+            MyDebuffs.AddRange(newDebuffs);
             newDebuffs.Clear();
         }
 
@@ -258,7 +258,7 @@ public abstract class Character : MonoBehaviour
         {
             foreach (Debuff debuff in expiredDebuffs)
             {
-                debuffs.Remove(debuff);
+                MyDebuffs.Remove(debuff);
             }
 
             expiredDebuffs.Clear();
@@ -268,12 +268,12 @@ public abstract class Character : MonoBehaviour
     public void ApplyDebuff(Debuff debuff)
     {
         //check if we have a debuff with the same name
-        Debuff tmp = debuffs.Find(x => x.Name == debuff.Name);
+        Debuff tmp = MyDebuffs.Find(x => x.Name == debuff.Name);
 
         if (tmp != null) //If that's the case
         {
             //Then we remove the old debuff
-            expiredDebuffs.Add(tmp);
+            RemoveDebuff(tmp);
         }
 
         //Apply the new debuff
@@ -282,6 +282,7 @@ public abstract class Character : MonoBehaviour
 
     public void RemoveDebuff(Debuff debuff)
     {
+        UIManager.MyInstance.RemoveDebuff(debuff);
         this.expiredDebuffs.Add(debuff);
     }
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ThundshockDebuff : Debuff
 {
@@ -9,7 +10,7 @@ public class ThundshockDebuff : Debuff
 
     public override string Name => "Thundershock";
 
-    public ThundshockDebuff()
+    public ThundshockDebuff(Image icon) : base(icon)
     {
         MyDuration = 1;
     }
@@ -29,7 +30,7 @@ public class ThundshockDebuff : Debuff
 
     public override void Remove()
     {
-        (character as Enemy).ChangeState(new PathState());
+        (MyCharacter as Enemy).ChangeState(new PathState());
         base.Remove();
     }
 }

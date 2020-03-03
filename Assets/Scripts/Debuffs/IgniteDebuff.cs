@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Debuffs
 {
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Debuffs
 
         private float elapsed;
 
-        public  IgniteDebuff()
+        public  IgniteDebuff(Image icon) : base(icon)
         {
             MyDuration = 20;
         }
@@ -29,7 +30,7 @@ namespace Assets.Scripts.Debuffs
 
             if (elapsed >= MyDuration/MyTickDamage)
             {
-                character.TakeDamage(MyTickDamage, null);
+                MyCharacter.TakeDamage(MyTickDamage, null);
                 elapsed = 0;
             }
 

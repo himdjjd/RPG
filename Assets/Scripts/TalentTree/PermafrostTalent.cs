@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PermafrostTalent : Talent
 {
-    PermafrostDebuff debuff = new PermafrostDebuff();
+    PermafrostDebuff debuff;
 
     private float speedReduction = 20;
 
@@ -15,6 +15,7 @@ public class PermafrostTalent : Talent
 
     public void Start()
     {
+        debuff = new PermafrostDebuff(icon);
         debuff.MySpeedReduction = speedReduction;
     }
 

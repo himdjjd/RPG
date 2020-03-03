@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Debuffs;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,6 +53,14 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private RectTransform tooltipRect;
+
+    [SerializeField]
+    private TargetDebuff targetDebuffPrefab;
+
+    [SerializeField]
+    private Transform targetDebuffsTransform;
+
+    private List<TargetDebuff> targetDebuffs = new List<TargetDebuff>();
 
     /// <summary>
     /// A reference to all the kibind buttons on the menu
@@ -152,6 +161,20 @@ public class UIManager : MonoBehaviour
         {
             levelText.color = Color.grey;
         }
+
+        for (int i = 0; i < targetDebuffs.Count; i++)
+        {
+            Destroy(targetDebuffs[i].gameObject);
+        }
+
+        targetDebuffs.Clear();
+
+        foreach (Debuff debuff in target.MyDebuffs)
+        {
+            TargetDebuff td = Instantiate(targetDebuffPrefab, targetDebuffsTransform);
+            td.Initialize(debuff);
+            targetDebuffs.Add(td);
+        }
     }
 
     public void HideTargetFrame()
@@ -166,6 +189,27 @@ public class UIManager : MonoBehaviour
     public void UpdateTargetFrame(float health)
     {
         healthStat.MyCurrentValue = health;
+    }
+
+    public void AddDebuffToTargetFrame(Debuff debuff)
+    {
+        if (targetFrame.activeSelf && debuff.MyCharacter == Player.MyInstance.MyTarget)
+        {
+            TargetDebuff td = Instantiate(targetDebuffPrefab, targetDebuffsTransform);
+            td.Initialize(debuff);
+            targetDebuffs.Add(td);
+        }
+    }
+
+    public void RemoveDebuff(Debuff debuff)
+    {
+        if (targetFrame.activeSelf && debuff.MyCharacter == Player.MyInstance.MyTarget)
+        {
+            TargetDebuff td = targetDebuffs.Find(x => x.Debuff.Name == debuff.Name);
+
+            targetDebuffs.Remove(td);
+            Destroy(td.gameObject);
+        }
     }
 
     /// <summary>

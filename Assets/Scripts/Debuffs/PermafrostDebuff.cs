@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Debuffs
 {
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Debuffs
 
         private float originalSpeed;
 
-        public PermafrostDebuff()
+        public PermafrostDebuff(Image icon) : base(icon)
         {
             MyDuration = 3;
         }
@@ -28,7 +29,7 @@ namespace Assets.Scripts.Debuffs
 
         public override void Remove()
         {
-            character.Speed = originalSpeed;
+            MyCharacter.Speed = originalSpeed;
             base.Remove();
         }
 

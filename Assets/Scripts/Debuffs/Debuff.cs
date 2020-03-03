@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Debuffs
 {
@@ -14,32 +15,40 @@ namespace Assets.Scripts.Debuffs
 
         public float ProcChance { get; set; }
 
-        private float elapsed;
+        public float Elapsed { get; set; }
 
-        protected Character character;
+        public Character MyCharacter { get; protected set; }
+
+        public Image MyIcon { get; set; }
 
         public abstract string Name
         {
             get;
         }
 
-        public virtual void Apply(Character character)
+        public Debuff(Image image)
         {
-            this.character = character;
-            character.ApplyDebuff(this);
+            this.MyIcon = image;
         }
 
-        public virtual  void Remove()
+        public virtual void Apply(Character character)
         {
-            character.RemoveDebuff(this);
-            elapsed = 0;
+            this.MyCharacter = character;
+            character.ApplyDebuff(this);
+            UIManager.MyInstance.AddDebuffToTargetFrame(this);
+        }
+
+        public virtual void Remove()
+        {
+            MyCharacter.RemoveDebuff(this);
+            Elapsed = 0;
         }
 
         public virtual void Update()
         {
-            elapsed += Time.deltaTime;
+            Elapsed += Time.deltaTime;
 
-            if (elapsed >= MyDuration)
+            if (Elapsed >= MyDuration)
             {
                 Remove();
             }

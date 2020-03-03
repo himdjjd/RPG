@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThundshockTalent : Talent
 {
-    ThundshockDebuff debuff = new ThundshockDebuff();
+    ThundshockDebuff debuff;
 
     private string nextRank = string.Empty;
 
@@ -13,6 +13,7 @@ public class ThundshockTalent : Talent
 
     public void Start()
     {
+       debuff = new ThundshockDebuff(icon);
         procChance = 5;
         debuff.ProcChance = procChance;
 
