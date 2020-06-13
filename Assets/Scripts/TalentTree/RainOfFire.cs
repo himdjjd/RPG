@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class RainOfFire : Talent
 {
+    [SerializeField]
+    private float duration;
+
+    [SerializeField]
+    private float damage;
 
     public void Start()
     {
@@ -23,8 +28,8 @@ public class RainOfFire : Talent
 
     }
 
-    //public override string GetDescription()
-    //{
-    //    return $"Ignite<color=#ffd100>\nYour fireball applies a debuff\nto the target that\ndoes {debuff.MyTickDamage*debuff.MyDuration} damage over {debuff.MyDuration} seconds</color>{nextRank}";  
-    //}
+    public override string GetDescription()
+    {
+        return $"Rain Of Fire<color=#ffd100>\nCreates a rain of fire\non a target location\nthat does {damage/duration} damage \nevery second for {duration} seconds</color>";
+    }
 }

@@ -176,6 +176,7 @@ public class Player : Character
 
             if (Input.GetMouseButtonDown(0))
             {
+                unusedSpell.GetComponent<MonoBehaviour>().enabled = true;
                 unusedSpell = null;
             }
         }

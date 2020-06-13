@@ -21,6 +21,9 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
     private float damage;
 
     [SerializeField]
+    private float duration;
+
+    [SerializeField]
     private float range;
 
     /// <summary>
@@ -160,10 +163,20 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
     }
 
     public bool NeedsTarget { get => needsTarget;}
+    public float MyDuration { get => duration; set => duration = value; }
 
     public string GetDescription()
     {
-        return string.Format("{0}\nCast time: {1} second(s)\n<color=#ffd111>{2}\nthat causes {3} damage</color>", title, castTime,description, MyDamage);
+        if (!needsTarget)
+        {
+            return $"{title}<color=#ffd100>\n{description}\nthat does {damage / MyDuration} damage\nevery sec for {MyDuration} sec</color>";
+        }
+        else
+        {
+            return string.Format("{0}\nCast time: {1} second(s)\n<color=#ffd111>{2}\nthat causes {3} damage</color>", title, castTime, description, MyDamage);
+        }
+
+
     }
 
     public void Use()
