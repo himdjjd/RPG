@@ -56,6 +56,9 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
     [SerializeField]
     private Color barColor;
 
+    [SerializeField]
+    private bool needsTarget;
+
     public Debuff MyDebuff { get; set; }
 
     /// <summary>
@@ -155,6 +158,8 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
             range = value;
         }
     }
+
+    public bool NeedsTarget { get => needsTarget;}
 
     public string GetDescription()
     {

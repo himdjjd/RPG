@@ -2883,6 +2883,7 @@ MonoBehaviour:
       type: 3}
     description: Throws a fiery spell at the target
     barColor: {r: 0.9558824, g: 0.3865701, b: 0.3865701, a: 1}
+    needsTarget: 0
   - title: Frostbolt
     damage: 50
     range: 7
@@ -2893,6 +2894,7 @@ MonoBehaviour:
       type: 3}
     description: Launches a blot of frost at the target
     barColor: {r: 0.37467563, g: 0.6753088, b: 0.9264706, a: 1}
+    needsTarget: 0
   - title: Thunderbolt
     damage: 50
     range: 7
@@ -2903,6 +2905,7 @@ MonoBehaviour:
       type: 3}
     description: Strikes an enemy with a thunder bolt
     barColor: {r: 1, g: 0.9119676, b: 0.5441177, a: 1}
+    needsTarget: 0
   - title: Gather
     damage: 0
     range: 0
@@ -2912,15 +2915,18 @@ MonoBehaviour:
     spellPrefab: {fileID: 0}
     description: Uses the gather skill
     barColor: {r: 0.3764706, g: 0.9254902, b: 0.4392157, a: 1}
+    needsTarget: 0
   - title: Rain Of Fire
     damage: 0
     range: 0
     icon: {fileID: 21300000, guid: a53b2ada42add9b43938c07a22efd85f, type: 3}
     speed: 0
     castTime: 3
-    spellPrefab: {fileID: 0}
+    spellPrefab: {fileID: 1354024410882075330, guid: f8ea2c74ebf891d4ba4d12c04af227db,
+      type: 3}
     description: Creates a rain of fire at the selected area
     barColor: {r: 0.95686275, g: 0.3882353, b: 0.3882353, a: 1}
+    needsTarget: 0
   obtainableSpells:
   - {fileID: 757653967}
 --- !u!1 &231990831
@@ -4641,7 +4647,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 17
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4911,7 +4917,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 14
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4929,7 +4935,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 9
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4938,7 +4944,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 9
+      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -5139,7 +5145,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 5595cbe7794fde64c92264fdbcca6494, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: 44947ccac85f4b240b14f0397a51802c, type: 3}
@@ -5155,7 +5161,7 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 0871c419e99aa044b95908b5fc795dbe, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: bd4a7721e20d2e2449d3ae74ef9c4749, type: 3}
-  - m_RefCount: 4
+  - m_RefCount: 5
     m_Data: {fileID: 21300000, guid: 10ca68d6ccae9b044834179e9abf4794, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: c42e9e8b918fe12419547785989d47cd, type: 3}
@@ -9871,6 +9877,11 @@ PrefabInstance:
       propertyPath: hitBox
       value: 
       objectReference: {fileID: 491590695}
+    - target: {fileID: 114875538888312508, guid: 206ba08d4fe851042abcfec0a35020d5,
+        type: 3}
+      propertyPath: mainCam
+      value: 
+      objectReference: {fileID: 2117496223}
     - target: {fileID: 114954413044924514, guid: 206ba08d4fe851042abcfec0a35020d5,
         type: 3}
       propertyPath: castingBar
@@ -47329,75 +47340,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8200259668794195018}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5041222277866228071
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1346747004675030813, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -15.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346747004675030813, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346747004675030813, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346747004675030813, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346747004675030813, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346747004675030813, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346747004675030813, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346747004675030813, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346747004675030813, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346747004675030813, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1346747004675030813, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1354024410882075330, guid: f8ea2c74ebf891d4ba4d12c04af227db,
-        type: 3}
-      propertyPath: m_Name
-      value: Cloud
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f8ea2c74ebf891d4ba4d12c04af227db, type: 3}
 --- !u!1001 &8200259668794195018
 PrefabInstance:
   m_ObjectHideFlags: 0

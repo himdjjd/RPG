@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -65,6 +66,9 @@ public class Player : Character
     [SerializeField]
     private Transform minimapIcon;
 
+    [SerializeField]
+    private Camera mainCam;
+
     /// <summary>
     /// Index that keeps track of which exit point to use, 2 is default down
     /// </summary>
@@ -94,6 +98,8 @@ public class Player : Character
 
     [SerializeField]
     private Profession profession;
+
+    private GameObject unusedSpell;
 
     public int MyGold { get; set; }
 
@@ -162,6 +168,17 @@ public class Player : Character
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x),
             Mathf.Clamp(transform.position.y, min.y, max.y),
             transform.position.z);
+
+        if (unusedSpell != null)
+        {
+            Vector3 mouseScreenPostion = mainCam.ScreenToWorldPoint(Input.mousePosition);
+            unusedSpell.transform.position = new Vector3(mouseScreenPostion.x, mouseScreenPostion.y, 0);
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                unusedSpell = null;
+            }
+        }
 
         base.Update();
     }
@@ -320,13 +337,19 @@ public class Player : Character
     /// <summary>
     /// Casts a spell
     /// </summary>
-    public void CastSpell(ICastable castable)
+    public void CastSpell(Spell spell)
     {
         Block();
 
-        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive &&!IsAttacking && !IsMoving && InLineOfSight() && InRange((castable as Spell),MyTarget.transform.position)) //Chcks if we are able to attack
+        if (!spell.NeedsTarget)
         {
-            MyInitRoutine = StartCoroutine(AttackRoutine(castable));
+            unusedSpell = Instantiate(spell.MySpellPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+            unusedSpell.transform.position = new Vector3(unusedSpell.transform.position.x, unusedSpell.transform.position.y, 0);
+        }
+
+        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive &&!IsAttacking && !IsMoving && InLineOfSight() && InRange(spell, MyTarget.transform.position)) //Chcks if we are able to attack
+        {
+            MyInitRoutine = StartCoroutine(AttackRoutine(spell));
         }
     }
 
