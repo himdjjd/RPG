@@ -101,6 +101,8 @@ public class Player : Character
 
     private GameObject unusedSpell;
 
+    private Spell aoeSpell;
+
     public int MyGold { get; set; }
 
     public List<IInteractable> MyInteractables
@@ -176,7 +178,10 @@ public class Player : Character
 
             if (Input.GetMouseButtonDown(0))
             {
+                AOESpell s = Instantiate(aoeSpell.MySpellPrefab, unusedSpell.transform.position, Quaternion.identity).GetComponent<AOESpell>();
+                Destroy(unusedSpell);
                 unusedSpell = null;
+                s.Initialize(aoeSpell.MyDamage, aoeSpell.MyDuration);
             }
         }
 
@@ -345,6 +350,7 @@ public class Player : Character
         {
             unusedSpell = Instantiate(spell.MySpellPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
             unusedSpell.transform.position = new Vector3(unusedSpell.transform.position.x, unusedSpell.transform.position.y, 0);
+            aoeSpell = spell;
         }
 
         if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive &&!IsAttacking && !IsMoving && InLineOfSight() && InRange(spell, MyTarget.transform.position)) //Chcks if we are able to attack
