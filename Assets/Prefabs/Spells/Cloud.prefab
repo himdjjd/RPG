@@ -4872,6 +4872,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6544e18a769c6e845bfcc3caa8a68724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleSystem: {fileID: 7007212947065939666}
+  cloudRenderer: {fileID: 3369491501673429707}
+  shadowRenderer: {fileID: 361995344389354494}
+  shadowColor: {r: 0.08627451, g: 0.08627451, b: 0.08627451, a: 0.42745098}
+  cloudColor: {r: 0.34117648, g: 0.34117648, b: 0.34117648, a: 1}
+  outOfRangeColor: {r: 0.990566, g: 0.3317462, b: 0.3317462, a: 0.47058824}
 --- !u!1 &3434393849617943699
 GameObject:
   m_ObjectHideFlags: 0

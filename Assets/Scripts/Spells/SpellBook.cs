@@ -189,6 +189,9 @@ public class SpellBook : MonoBehaviour
             case "rain of fire":
                 obtainableSpells[0].SetActive(true);
                 break;
+            case "blizzard":
+                obtainableSpells[1].SetActive(true);
+                break;
 
         }
     }

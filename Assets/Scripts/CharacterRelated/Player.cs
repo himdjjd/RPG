@@ -176,7 +176,18 @@ public class Player : Character
             Vector3 mouseScreenPostion = mainCam.ScreenToWorldPoint(Input.mousePosition);
             unusedSpell.transform.position = new Vector3(mouseScreenPostion.x, mouseScreenPostion.y, 0);
 
-            if (Input.GetMouseButtonDown(0))
+            float distance = Vector2.Distance(transform.position, mainCam.ScreenToWorldPoint(Input.mousePosition));
+
+            if (distance >= aoeSpell.MyRange)
+            {
+                unusedSpell.GetComponent<AOESpell>().OutOfRange();
+            }
+            else
+            {
+                unusedSpell.GetComponent<AOESpell>().InRange();
+            }
+
+            if (Input.GetMouseButtonDown(0) && distance <= aoeSpell.MyRange)
             {
                 AOESpell s = Instantiate(aoeSpell.MySpellPrefab, unusedSpell.transform.position, Quaternion.identity).GetComponent<AOESpell>();
                 Destroy(unusedSpell);

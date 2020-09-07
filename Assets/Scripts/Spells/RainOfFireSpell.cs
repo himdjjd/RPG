@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class RainOfFireSpell : AOESpell
 {
+ 
     public override void Execute()
     {
         tickElapsed += Time.deltaTime;
@@ -18,4 +20,6 @@ public class RainOfFireSpell : AOESpell
             tickElapsed = 0;
         }
     }
+
+
 }

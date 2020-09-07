@@ -1,10 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public abstract class AOESpell : MonoBehaviour
 {
     protected List<Enemy> enemies = new List<Enemy>();
+
+    [SerializeField]
+    protected ParticleSystem particleSystem;
+
+    protected MainModule main;
+
+    [SerializeField]
+    private SpriteRenderer cloudRenderer;
+
+    [SerializeField]
+    private SpriteRenderer shadowRenderer;
+
+    [SerializeField]
+    private Color shadowColor;
+
+    [SerializeField]
+    private Color cloudColor;
 
     protected float duration;
 
@@ -13,6 +31,14 @@ public abstract class AOESpell : MonoBehaviour
     protected float elapsed;
 
     protected float tickElapsed;
+
+    [SerializeField]
+    protected Color outOfRangeColor;
+
+    private void Awake()
+    {
+        main = particleSystem.main;
+    }
 
     // Update is called once per frame
     void Update()
@@ -25,6 +51,20 @@ public abstract class AOESpell : MonoBehaviour
         }
 
         Execute();
+    }
+
+    public void InRange()
+    {
+        main.startColor = Color.white;
+        shadowRenderer.color = shadowColor;
+        cloudRenderer.color = cloudColor;
+    }
+
+    public void OutOfRange()
+    {
+        main.startColor = outOfRangeColor;
+        shadowRenderer.color = outOfRangeColor;
+        cloudRenderer.color = outOfRangeColor;
     }
 
     public abstract void Execute();
