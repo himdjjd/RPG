@@ -16,8 +16,6 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    private float currentSpeed;
-
     [SerializeField]
     private string type;
 
@@ -105,16 +103,16 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public float CurrentSpeed
+    public float Speed
     {
         get
         {
-            return currentSpeed;
+            return speed;
         }
 
         set
         {
-            currentSpeed = value;
+            speed = value;
         }
     }
 
@@ -168,12 +166,9 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public float Speed { get => speed; private set => speed = value; }
-
     protected virtual void Start()
     {
         //Makes a reference to the character's animator
-        currentSpeed = Speed;
         MyAnimator = GetComponent<Animator>();
         MySpriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -204,7 +199,7 @@ public abstract class Character : MonoBehaviour
             if (IsAlive)
             {
                 //Makes sure that the player moves
-                MyRigidbody.velocity = Direction.normalized * CurrentSpeed;
+                MyRigidbody.velocity = Direction.normalized * Speed;
             }
         }
     }
