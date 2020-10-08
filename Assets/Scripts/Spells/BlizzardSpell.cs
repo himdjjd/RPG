@@ -17,8 +17,5 @@ public class BlizzardSpell : AOESpell
         enemy.CurrentSpeed = enemy.Speed;
         base.Exit(enemy);
     }
-    public override void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
+
 }

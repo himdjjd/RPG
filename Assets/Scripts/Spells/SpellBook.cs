@@ -192,6 +192,9 @@ public class SpellBook : MonoBehaviour
             case "blizzard":
                 obtainableSpells[1].SetActive(true);
                 break;
+            case "chainlightning":
+                obtainableSpells[2].SetActive(true);
+                break;
 
         }
     }
