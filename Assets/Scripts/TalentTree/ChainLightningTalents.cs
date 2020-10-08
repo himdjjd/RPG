@@ -11,7 +11,6 @@ public class ChainLightningTalents : Talent
         {
             SpellBook.MyInstance.LearnSpell("ChainLightning");
         }
-
         return false;
     }
 
