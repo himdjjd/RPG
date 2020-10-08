@@ -47,7 +47,7 @@ public abstract class AOESpell : MonoBehaviour
 
         if (elapsed >= duration)
         {
-            Destroy(gameObject);
+            Remove();
         }
 
         Execute();
@@ -67,7 +67,11 @@ public abstract class AOESpell : MonoBehaviour
         cloudRenderer.color = outOfRangeColor;
     }
 
-    public abstract void Execute();
+
+    public virtual void Execute()
+    { 
+    
+    }
 
     public void Initialize(float damage, float duration)
     {
@@ -80,7 +84,7 @@ public abstract class AOESpell : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            enemies.Add(collision.GetComponent<Enemy>());
+            Enter(collision.GetComponent<Enemy>());
         }
     }
 
@@ -88,7 +92,23 @@ public abstract class AOESpell : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            enemies.Remove(collision.GetComponent<Enemy>());
+           
+            Exit(collision.GetComponent<Enemy>());
         }
+    }
+
+    public virtual void Enter(Enemy enemy)
+    {
+        enemies.Add(enemy);
+    }
+
+    public virtual void Exit(Enemy enemy)
+    {
+        enemies.Remove(enemy);
+    }
+
+    public virtual void Remove()
+    {
+        Destroy(gameObject);
     }
 }
