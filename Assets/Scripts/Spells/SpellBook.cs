@@ -182,6 +182,7 @@ public class SpellBook : MonoBehaviour
         }
     }
 
+    
     public void LearnSpell(string name)
     {
         switch (name.ToLower())

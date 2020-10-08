@@ -17,5 +17,4 @@ public class BlizzardSpell : AOESpell
         enemy.CurrentSpeed = enemy.Speed;
         base.Exit(enemy);
     }
-
 }
