@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 4055095772989044}
   - component: {fileID: 212053709115203754}
   - component: {fileID: 50286977808819324}
+  - component: {fileID: 5413538520100391408}
   - component: {fileID: 95737730248486886}
   - component: {fileID: 61650097614070454}
   m_Layer: 13
-  m_Name: LightningPrefab
+  m_Name: ChainLightningPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1c10a406f8efc464ca4cf286c1a88340, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec209c80866fd73499e2307cfb596e2d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,6 +106,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5413538520100391408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478980718226232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84297932067c8ef4b83d4bf76c3ed812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!95 &95737730248486886
 Animator:
   serializedVersion: 3
@@ -141,7 +158,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.68, y: 0.2325}
+    oldSize: {x: 0.9066667, y: 0.31}
     newSize: {x: 0.24666667, y: 0.48666668}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
