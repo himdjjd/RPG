@@ -25,6 +25,8 @@ public class Player : Character
     }
 
     private List<Enemy> attackers = new List<Enemy>();
+    #region STATS
+
 
     /// <summary>
     /// The player's mana
@@ -32,9 +34,25 @@ public class Player : Character
     [SerializeField]
     private Stat mana;
 
+    /// <summary>
+    /// The player's xpStat
+    /// </summary>
     [SerializeField]
     private Stat xpStat;
 
+    private int intellect;
+
+    private int stamina;
+
+    private int strength;
+
+    private int intellectMultiplier = 15;
+
+    #endregion
+
+    /// <summary>
+    /// The level text
+    /// </summary>
     [SerializeField]
     private Text levelText;
 
@@ -202,11 +220,39 @@ public class Player : Character
     public void SetDefaultValues()
     {
         MyGold = 1000;
-        health.Initialize(initHealth, initHealth);
-        MyMana.Initialize(initMana, initMana);
+        stamina = 50;
+        intellect = 10;
+        strength = 0;
+        ResetStats();
         MyXp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
         levelText.text = MyLevel.ToString();
         initPos = transform.parent.position;
+    }
+
+    private void ResetStats()
+    {
+        MyHealth.Initialize(stamina*StaminaMultiplier(), stamina*StaminaMultiplier());
+        MyMana.Initialize(intellect * intellectMultiplier, intellect * intellectMultiplier);
+    }
+
+    private void UpdateMaxStats()
+    {
+        MyHealth.SetMaxValue(stamina * StaminaMultiplier());
+        MyMana.SetMaxValue(intellect * intellectMultiplier);
+    }
+
+    private int StaminaMultiplier()
+    {
+        if (MyLevel < 10)
+        {
+            return 1;
+        }
+        else if (MyLevel > 10)
+        {
+            return 2;
+        }
+
+        return 3;
     }
 
     /// <summary>
@@ -517,12 +563,40 @@ public class Player : Character
         MyXp.MyMaxValue = Mathf.Floor(MyXp.MyMaxValue);
         MyXp.MyCurrentValue = MyXp.MyOverflow;
         MyXp.Reset();
-
+        stamina += IncreaseBaseStat();
+        intellect += IncreaseBaseStat();
+        ResetStats();
         if (MyXp.MyCurrentValue >= MyXp.MyMaxValue)
         {
             StartCoroutine(Ding());
         }
 
+    }
+
+    public void EquipGear(Armor armor)
+    {
+        stamina += armor.Stamina;
+        intellect += armor.Intellect;
+        strength += armor.Strength;
+        UpdateMaxStats();
+    }
+
+    public void DequipGear(Armor armor)
+    {
+        stamina -= armor.Stamina;
+        intellect -= armor.Intellect;
+        strength -= armor.Strength;
+        UpdateMaxStats();
+    }
+
+    private int IncreaseBaseStat()
+    {
+        if (MyLevel < 10)
+        {
+            return 3;
+        }
+
+        return 0;
     }
 
     public void UpdateLevel()

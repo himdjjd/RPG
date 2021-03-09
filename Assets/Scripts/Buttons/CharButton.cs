@@ -59,6 +59,8 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             if (MyEquippedArmor != armor)
             {
                 armor.MySlot.AddItem(MyEquippedArmor);
+
+                Player.MyInstance.DequipGear(MyEquippedArmor);
             }
        
             UIManager.MyInstance.RefreshTooltip(MyEquippedArmor);
@@ -83,6 +85,8 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         {
             gearSocket.Equip(MyEquippedArmor.MyAnimationClips);
         }
+
+        Player.MyInstance.EquipGear(armor);
     
     }
 
@@ -106,6 +110,7 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
        
         if (gearSocket != null && MyEquippedArmor.MyAnimationClips != null)
         {
+            Player.MyInstance.DequipGear(MyEquippedArmor);
             gearSocket.Dequip();
         }
 

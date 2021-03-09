@@ -38,21 +38,25 @@ public class Armor : Item
         }
     }
 
+    public int Intellect { get => intellect; set => intellect = value; }
+    public int Strength { get => strength; set => strength = value; }
+    public int Stamina { get => stamina; set => stamina = value; }
+
     public override string GetDescription()
     {
         string stats = string.Empty;
 
-        if (intellect > 0 )
+        if (Intellect > 0 )
         {
-            stats += string.Format("\n +{0} intellect", intellect);
+            stats += string.Format("\n +{0} intellect", Intellect);
         }
-        if (strength > 0)
+        if (Strength > 0)
         {
-            stats += string.Format("\n +{0} strength", strength);
+            stats += string.Format("\n +{0} strength", Strength);
         }
-        if (stamina > 0)
+        if (Stamina > 0)
         {
-            stats += string.Format("\n +{0} stamina", stamina);
+            stats += string.Format("\n +{0} stamina", Stamina);
         }
 
         return base.GetDescription() +stats;
