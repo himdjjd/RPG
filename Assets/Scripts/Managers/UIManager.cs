@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -61,6 +62,9 @@ public class UIManager : MonoBehaviour
     private Transform targetDebuffsTransform;
 
     private List<TargetDebuff> targetDebuffs = new List<TargetDebuff>();
+
+    [SerializeField]
+    private TMP_Text txtStrength, txtStamina, txtIntellect;
 
     /// <summary>
     /// A reference to all the kibind buttons on the menu
@@ -304,5 +308,13 @@ public class UIManager : MonoBehaviour
     public void RefreshTooltip(IDescribable description)
     {
         tooltipText.text = description.GetDescription();
+    }
+
+    public void UpdateStatsText(int intellect, int stamina, int strength)
+    {
+        this.txtStrength.text = "STRENGTH:<color=\"green\"> " + strength;
+        this.txtStamina.text = "STAMINA:<color=\"green\"> " + stamina;
+        this.txtIntellect.text = "INTELLECT:<color=\"green\"> " + intellect;
+
     }
 }

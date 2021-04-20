@@ -227,6 +227,7 @@ public class Player : Character
         MyXp.Initialize(0, Mathf.Floor(100 * MyLevel * Mathf.Pow(MyLevel, 0.5f)));
         levelText.text = MyLevel.ToString();
         initPos = transform.parent.position;
+        UIManager.MyInstance.UpdateStatsText(intellect, stamina, strength);
     }
 
     private void ResetStats()
@@ -579,6 +580,7 @@ public class Player : Character
         intellect += armor.Intellect;
         strength += armor.Strength;
         UpdateMaxStats();
+        UIManager.MyInstance.UpdateStatsText(intellect, stamina, strength);
     }
 
     public void DequipGear(Armor armor)
@@ -587,6 +589,7 @@ public class Player : Character
         intellect -= armor.Intellect;
         strength -= armor.Strength;
         UpdateMaxStats();
+        UIManager.MyInstance.UpdateStatsText(intellect, stamina, strength);
     }
 
     private int IncreaseBaseStat()

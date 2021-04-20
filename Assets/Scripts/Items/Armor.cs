@@ -22,6 +22,9 @@ public class Armor : Item
     [SerializeField]
     private AnimationClip[] animationClips;
 
+    [SerializeField]
+    private Sprite visual;
+
     internal ArmorType MyArmorType
     {
         get
@@ -41,6 +44,7 @@ public class Armor : Item
     public int Intellect { get => intellect; set => intellect = value; }
     public int Strength { get => strength; set => strength = value; }
     public int Stamina { get => stamina; set => stamina = value; }
+    public Sprite Visual { get => visual; set => visual = value; }
 
     public override string GetDescription()
     {
