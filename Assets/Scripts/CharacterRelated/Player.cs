@@ -211,6 +211,7 @@ public class Player : Character
                 Destroy(unusedSpell);
                 unusedSpell = null;
                 s.Initialize(aoeSpell.MyDamage, aoeSpell.MyDuration);
+                mana.MyCurrentValue -= aoeSpell.ManaCost;
             }
         }
 
@@ -358,6 +359,8 @@ public class Player : Character
             SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
 
             s.Initialize(currentTarget, newSpell.MyDamage, this,newSpell.MyDebuff);
+
+            mana.MyCurrentValue -= newSpell.ManaCost;
         }
 
         StopAction(); //Ends the attack
@@ -404,17 +407,26 @@ public class Player : Character
     {
         Block();
 
-        if (!spell.NeedsTarget)
+        if (spell.ManaCost <= mana.MyCurrentValue)
         {
-            unusedSpell = Instantiate(spell.MySpellPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
-            unusedSpell.transform.position = new Vector3(unusedSpell.transform.position.x, unusedSpell.transform.position.y, 0);
-            aoeSpell = spell;
+            if (!spell.NeedsTarget && unusedSpell == null)
+            {
+                unusedSpell = Instantiate(spell.MySpellPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+                unusedSpell.transform.position = new Vector3(unusedSpell.transform.position.x, unusedSpell.transform.position.y, 0);
+                aoeSpell = spell;
+            }
+            else
+            {
+                Destroy(unusedSpell);
+            }
+
+            if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving && InLineOfSight() && InRange(spell, MyTarget.transform.position)) //Chcks if we are able to attack
+            {
+                MyInitRoutine = StartCoroutine(AttackRoutine(spell));
+            }
         }
 
-        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive &&!IsAttacking && !IsMoving && InLineOfSight() && InRange(spell, MyTarget.transform.position)) //Chcks if we are able to attack
-        {
-            MyInitRoutine = StartCoroutine(AttackRoutine(spell));
-        }
+
     }
 
     private bool InRange(Spell spell, Vector2 targetPos)
