@@ -70,6 +70,8 @@ public abstract class Character : MonoBehaviour
 
     private List<Debuff> expiredDebuffs = new List<Debuff>();
 
+    public List<Character> Attackers { get; set; } = new List<Character>();
+
     public Stat MyHealth
     {
         get { return health; }
@@ -328,6 +330,19 @@ public abstract class Character : MonoBehaviour
     {
         MyHealth.MyCurrentValue += health;
         CombatTextManager.MyInstance.CreateText(transform.position, health.ToString(),SCTTYPE.HEAL,true);
+    }
+
+    public virtual void AddAttacker(Character attacker)
+    {
+        if (!Attackers.Contains(attacker))
+        {
+            Attackers.Add(attacker);
+        }
+    }
+
+    public virtual void RemoveAttacker(Character attacker)
+    {
+        Attackers.Remove(attacker);
     }
 
 }

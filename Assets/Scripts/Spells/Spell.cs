@@ -62,6 +62,9 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
     [SerializeField]
     private bool needsTarget;
 
+    [SerializeField]
+    private int manaCost;
+
     public Debuff MyDebuff { get; set; }
 
     /// <summary>
@@ -164,6 +167,7 @@ public class Spell : IUseable, IMoveable, IDescribable, ICastable
 
     public bool NeedsTarget { get => needsTarget;}
     public float MyDuration { get => duration; set => duration = value; }
+    public int ManaCost { get => manaCost; set => manaCost = value; }
 
     public string GetDescription()
     {

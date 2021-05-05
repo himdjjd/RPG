@@ -24,7 +24,7 @@ public class Player : Character
         }
     }
 
-    private List<Enemy> attackers = new List<Enemy>();
+ 
     #region STATS
 
 
@@ -123,6 +123,8 @@ public class Player : Character
 
     public int MyGold { get; set; }
 
+    public bool InCombat { get; set; } = false;
+
     public List<IInteractable> MyInteractables
     {
         get
@@ -162,18 +164,6 @@ public class Player : Character
         }
     }
 
-    public List<Enemy> MyAttackers
-    {
-        get
-        {
-            return attackers;
-        }
-
-        set
-        {
-            attackers = value;
-        }
-    }
 
     /// <summary>
     /// We are overriding the characters update function, so that we can execute our own functions
@@ -211,6 +201,7 @@ public class Player : Character
                 Destroy(unusedSpell);
                 unusedSpell = null;
                 s.Initialize(aoeSpell.MyDamage, aoeSpell.MyDuration);
+                mana.MyCurrentValue -= aoeSpell.ManaCost;
             }
         }
 
@@ -358,6 +349,8 @@ public class Player : Character
             SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
 
             s.Initialize(currentTarget, newSpell.MyDamage, this,newSpell.MyDebuff);
+
+            mana.MyCurrentValue -= newSpell.ManaCost;
         }
 
         StopAction(); //Ends the attack
@@ -404,17 +397,26 @@ public class Player : Character
     {
         Block();
 
-        if (!spell.NeedsTarget)
+        if (spell.ManaCost <= mana.MyCurrentValue)
         {
-            unusedSpell = Instantiate(spell.MySpellPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
-            unusedSpell.transform.position = new Vector3(unusedSpell.transform.position.x, unusedSpell.transform.position.y, 0);
-            aoeSpell = spell;
+            if (!spell.NeedsTarget && unusedSpell == null)
+            {
+                unusedSpell = Instantiate(spell.MySpellPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+                unusedSpell.transform.position = new Vector3(unusedSpell.transform.position.x, unusedSpell.transform.position.y, 0);
+                aoeSpell = spell;
+            }
+            else
+            {
+                Destroy(unusedSpell);
+            }
+
+            if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving && InLineOfSight() && InRange(spell, MyTarget.transform.position)) //Chcks if we are able to attack
+            {
+                MyInitRoutine = StartCoroutine(AttackRoutine(spell));
+            }
         }
 
-        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive &&!IsAttacking && !IsMoving && InLineOfSight() && InRange(spell, MyTarget.transform.position)) //Chcks if we are able to attack
-        {
-            MyInitRoutine = StartCoroutine(AttackRoutine(spell));
-        }
+
     }
 
     private bool InRange(Spell spell, Vector2 targetPos)
@@ -539,14 +541,6 @@ public class Player : Character
         if (MyXp.MyCurrentValue >= MyXp.MyMaxValue)
         {
             StartCoroutine(Ding());
-        }
-    }
-
-    public void AddAttacker(Enemy enemy)
-    {
-        if (!MyAttackers.Contains(enemy))
-        {
-            MyAttackers.Add(enemy);
         }
     }
 
@@ -683,6 +677,31 @@ public class Player : Character
         {
             spriteRenderer.enabled = false;
         }
+    }
+
+    public override void AddAttacker(Character attacker)
+    {
+        int count = Attackers.Count;
+
+        base.AddAttacker(attacker);
+
+        if (count == 0)
+        {
+            InCombat = true;
+            CombatTextManager.MyInstance.CreateText(transform.position, "+COMBAT", SCTTYPE.TEXT, false);
+        }
+    }
+
+    public override void RemoveAttacker(Character attacker)
+    {
+        base.RemoveAttacker(attacker);
+        if (Attackers.Count == 0)
+        {
+            InCombat = false;
+            CombatTextManager.MyInstance.CreateText(transform.position, "-COMBAT", SCTTYPE.TEXT, false);
+
+        }
+        
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
