@@ -34,6 +34,9 @@ public class Profession : MonoBehaviour
 
     private int amount;
 
+    [SerializeField]
+    private CanvasGroup canvasGroup;
+
     private int MyAmount
     {
         set {
@@ -200,5 +203,11 @@ public class Profession : MonoBehaviour
         }
 
       
+    }
+
+    public void Close()
+    {
+        canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
     }
 }

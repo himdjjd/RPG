@@ -50,14 +50,27 @@ public class SaveManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("Load"))
         {
+            Player.MyInstance.SetDefaultValues();
             Load(saveSlots[PlayerPrefs.GetInt("Load")]);
             PlayerPrefs.DeleteKey("Load");
+            foreach (SavedGame saved in saveSlots)
+            {
+                //We need to show the saved files here
+                ShowSavedFiles(saved);
+            }
         }
         else
         {
             Player.MyInstance.SetDefaultValues();
+            foreach (SavedGame saved in saveSlots)
+            {
+                //We need to show the saved files here
+                ShowSavedFiles(saved);
+            }
         }
     }
+
+  
 
     public void ShowDialogue(GameObject clickButton)
     {
@@ -157,6 +170,8 @@ public class SaveManager : MonoBehaviour
 
             SavePlayer(data);
 
+            //SaveArmor(data);
+
             SaveChests(data);
 
             SaveActionButtons(data);
@@ -189,6 +204,12 @@ public class SaveManager : MonoBehaviour
             Player.MyInstance.transform.position);
     }
 
+    public void SaveArmor(SaveData date)
+    {
+        date.MyArmorDate = new ArmorDate(Armor.MyInstance.Intellect, Armor.MyInstance.Strength,
+            Armor.MyInstance.Stamina);
+    }
+
     private void SaveChests(SaveData data)
     {
         for (int i = 0; i < chests.Length; i++)
@@ -209,7 +230,8 @@ public class SaveManager : MonoBehaviour
     {
         for (int i = 1; i < InventoryScript.MyInstance.MyBags.Count; i++)
         {
-            data.MyInventoryData.MyBags.Add(new BagData(InventoryScript.MyInstance.MyBags[i].MySlotCount, InventoryScript.MyInstance.MyBags[i].MyBagButton.MyBagIndex));
+            data.MyInventoryData.MyBags.Add(new BagData(InventoryScript.MyInstance.MyBags[i].MySlotCount));
+            //, InventoryScript.MyInstance.MyBags[i].MyBagButton.MyBagIndex
 
         }
     }
@@ -254,7 +276,8 @@ public class SaveManager : MonoBehaviour
 
         foreach (SlotScript slot in slots)
         {
-            data.MyInventoryData.MyItems.Add(new ItemData(slot.MyItem.MyTitle, slot.MyItems.Count, slot.MyIndex, slot.MyBag.MyBagIndex));
+            data.MyInventoryData.MyItems.Add(new ItemData(slot.MyItem.MyTitle, slot.MyItems.Count, slot.MyIndex));
+            //, slot.MyBag.MyBagIndex
         }
 
     }
@@ -299,6 +322,8 @@ public class SaveManager : MonoBehaviour
 
             LoadPlayer(data);
 
+            //LoadArmor(data);
+
             LoadChests(data);
 
             LoadActionButtons(data);
@@ -328,6 +353,14 @@ public class SaveManager : MonoBehaviour
 
     }
 
+    private void LoadArmor(SaveData data)
+    {
+        Armor.MyInstance.Intellect = data.MyArmorDate.MyIntellect;
+        Armor.MyInstance.Stamina = data.MyArmorDate.MyStamina;
+        Armor.MyInstance.Strength = data.MyArmorDate.MyStrength;
+        UIManager.MyInstance.UpdateStatsText(data.MyArmorDate.MyIntellect, data.MyArmorDate.MyStamina, data.MyArmorDate.MyStrength);
+    }
+
     private void LoadChests(SaveData data)
     {
         foreach (ChestData chest in data.MyChestData)
@@ -352,7 +385,7 @@ public class SaveManager : MonoBehaviour
 
             newBag.Initialize(bagData.MySlotCount);
 
-            InventoryScript.MyInstance.AddBag(newBag, bagData.MyBagIndex);
+            InventoryScript.MyInstance.AddBag(newBag);
         }
     }
 

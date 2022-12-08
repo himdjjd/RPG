@@ -40,6 +40,12 @@ public class HandScript : MonoBehaviour
     [SerializeField]
     private Vector3 offset;
 
+    [SerializeField]
+    private GameObject dialogue;
+
+    [SerializeField]
+    private Text dialogueText;
+
     // Use this for initialization
     void Start ()
     {
@@ -65,7 +71,16 @@ public class HandScript : MonoBehaviour
     /// Take a moveable in the hand, so that we can move it around
     /// </summary>
     /// <param name="moveable">The moveable to pick up</param>
-    public void TakeMoveable(IMoveable moveable)
+    string moveableText = null;
+    public void TakeMoveable(IMoveable moveable,Item item)
+    {
+        this.MyMoveable = moveable;
+        icon.sprite = moveable.MyIcon;
+        icon.enabled = true;
+        moveableText = item.MyTitle;
+    }
+
+    public void SpellTakeMoveable(IMoveable moveable)
     {
         this.MyMoveable = moveable;
         icon.sprite = moveable.MyIcon;
@@ -85,12 +100,10 @@ public class HandScript : MonoBehaviour
         MyMoveable = null;
         icon.enabled = false;
         InventoryScript.MyInstance.FromSlot = null;
+        CloseDialogue();
     }
 
-    /// <summary>
-    /// Deletes an item from the inventory
-    /// </summary>
-    public void DeleteItem()
+    public void DropTrue()
     {
         if (MyMoveable is Item)
         {
@@ -103,11 +116,54 @@ public class HandScript : MonoBehaviour
             {
                 item.MyCharButton.DequipArmor();
             }
-      
+
         }
 
-        Drop();
-
         InventoryScript.MyInstance.FromSlot = null;
+
+        MyMoveable = null;
+        icon.enabled = false;
+        InventoryScript.MyInstance.FromSlot = null;
+        CloseDialogue();
+    }
+
+    public void DropFalse()
+    {
+        CloseDialogue();
+      
+    }
+
+    /// <summary>
+    /// Deletes an item from the inventory
+    /// </summary>
+    public void DeleteItem()
+    {
+
+
+        ShowDialogue(moveableText);
+
+
+    }
+
+    public void ShowDialogue(string text)
+    {
+        if (text == null)
+        {
+            dialogueText.text = "取消操作？";
+        }
+        else
+        {
+            dialogueText.text = "你要丢弃" + text + "吗？";
+        }
+
+       
+
+        dialogue.SetActive(true);
+    }
+
+    public void CloseDialogue()
+    {
+        moveableText = null;
+        dialogue.SetActive(false);
     }
 }

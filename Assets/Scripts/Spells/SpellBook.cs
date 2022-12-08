@@ -206,4 +206,10 @@ public class SpellBook : MonoBehaviour
 
         return spell;
     }
+
+    public void Close(CanvasGroup canvasGroup)
+    {
+        canvasGroup.alpha = canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts =false;
+    }
 }

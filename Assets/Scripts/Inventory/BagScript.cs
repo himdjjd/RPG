@@ -21,7 +21,7 @@ public class BagScript : MonoBehaviour
     /// </summary>
     private List<SlotScript> slots = new List<SlotScript>();
 
-    public int MyBagIndex { get; set; }
+    //public int MyBagIndex { get; set; }
 
     /// <summary>
     /// Indicates if this bag is open or closed
@@ -66,6 +66,11 @@ public class BagScript : MonoBehaviour
     {
         //Creates a reference to the canvasgroup
         canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup.alpha = canvasGroup.alpha =0;
+
+        //Blocks or removes raycast blocking
+        canvasGroup.blocksRaycasts = canvasGroup.blocksRaycasts =false;
+
     }
 
     public List<Item> GetItems()

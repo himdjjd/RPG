@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
+
+//[System.Serializable]
+//public class EventVector3 : UnityEvent<Vector3> { }
 
 public delegate void KillConfirmed(Character character);
 
@@ -27,7 +31,7 @@ public class GameManager : MonoBehaviour {
 
     private HashSet<Vector3Int> blocked = new HashSet<Vector3Int>();
 
-
+    //public EventVector3 OnMouseClicked;
     public static GameManager MyInstance
     {
         get
@@ -95,7 +99,7 @@ public class GameManager : MonoBehaviour {
         else if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject())
         {
             //Makes a raycast from the mouse position into the game world
-            RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, clickableLayer);
+            RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, clickableLayer);            
 
             if (hit.collider != null)
             {
@@ -111,7 +115,10 @@ public class GameManager : MonoBehaviour {
 
                 if (hit.collider != null)
                 {
-                    player.GetPath(mainCamera.ScreenToWorldPoint(Input.mousePosition));
+                    player.transform.position = hit.point;
+                    //player.GetPath(mainCamera.ScreenToWorldPoint(Input.mousePosition));
+                    //OnMouseClicked?.Invoke(mainCamera.ScreenToWorldPoint(Input.mousePosition));
+                    
                 }
             }
         }

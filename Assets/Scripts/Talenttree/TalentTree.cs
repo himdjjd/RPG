@@ -17,6 +17,9 @@ public class TalentTree : MonoBehaviour
     [SerializeField]
     private Text talentPointText;
 
+    [SerializeField]
+    private CanvasGroup canvasGroup;
+
     public int MyPoints
     {
         get
@@ -76,5 +79,11 @@ public class TalentTree : MonoBehaviour
     private void UpdateTalentPointText()
     {
         talentPointText.text = points.ToString();
+    }
+
+    public void Close()
+    {
+        canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
     }
 }

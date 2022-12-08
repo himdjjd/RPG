@@ -7,6 +7,21 @@ enum ArmorType {Head, Shoulders, Chest, Hands, Legs ,Feet, MainHand, Offhand, Tw
 [CreateAssetMenu(fileName = "Armor", menuName = "Items/Armor", order = 2)]
 public class Armor : Item
 {
+    private static Armor instance;
+
+    public static Armor MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<Armor>();
+            }
+
+            return instance;
+        }
+    }
+
     [SerializeField]
     private ArmorType armorType;
 

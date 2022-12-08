@@ -164,6 +164,11 @@ public class Player : Character
         }
     }
 
+    protected override void Start()
+    {
+        base.Start();
+        StartCoroutine(Regen());
+    }
 
     /// <summary>
     /// We are overriding the characters update function, so that we can execute our own functions
@@ -417,6 +422,37 @@ public class Player : Character
         }
 
 
+    }
+
+    private IEnumerator Regen()
+    {
+        while (true)
+        {
+            if (!InCombat)
+            {
+                if (health.MyCurrentValue < health.MyMaxValue)
+                {
+                    int value = Mathf.FloorToInt(health.MyMaxValue * 0.05f);
+                    health.MyCurrentValue += value;
+
+                    CombatTextManager.MyInstance.CreateText(transform.position, value.ToString(), SCTTYPE.HEAL, false);
+                }
+
+                if (mana.MyCurrentValue < mana.MyMaxValue)
+                {
+                    int value = Mathf.FloorToInt(mana.MyMaxValue * 0.05f);
+                    mana.MyCurrentValue += value;
+
+                    CombatTextManager.MyInstance.CreateText(transform.position, value.ToString(), SCTTYPE.MANA, false);
+                }
+            }
+
+
+            //This is how often we will get a regen tick
+            yield return new WaitForSeconds(1.5f);
+        }
+
+     
     }
 
     private bool InRange(Spell spell, Vector2 targetPos)

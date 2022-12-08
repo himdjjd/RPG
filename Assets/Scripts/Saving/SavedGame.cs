@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,6 +36,7 @@ public class SavedGame : MonoBehaviour
     [SerializeField]
     private int index;
 
+   
     public int MyIndex
     {
         get
@@ -63,6 +65,7 @@ public class SavedGame : MonoBehaviour
         xp.fillAmount = saveData.MyPlayerData.MyXp / saveData.MyPlayerData.MyMaxXP;
         xpText.text = saveData.MyPlayerData.MyXp + " / " + saveData.MyPlayerData.MyMaxXP;
 
+        //saveData.MyArmorDate.MyIntellect + " / " + saveData.MyArmorDate.MyStamina + " / " + saveData.MyArmorDate.MyStrength;
         levelText.text = saveData.MyPlayerData.MyLevel.ToString();
     }
 

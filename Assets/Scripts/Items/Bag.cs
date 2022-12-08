@@ -52,31 +52,31 @@ public class Bag : Item, IUseable
     /// </summary>
     public void Use()
     {
-        if (InventoryScript.MyInstance.CanAddBag)
-        {
+        //if (InventoryScript.MyInstance.CanAddBag)
+        //{
             Remove();
             MyBagScript = Instantiate(bagPrefab, InventoryScript.MyInstance.transform).GetComponent<BagScript>();
             MyBagScript.AddSlots(slots);
 
-            if (MyBagButton == null)
-            {
+            //if (MyBagButton == null)
+            //{
                 InventoryScript.MyInstance.AddBag(this);
-            }
-            else
-            {
-                InventoryScript.MyInstance.AddBag(this,MyBagButton);
-            }
+            //}
+            //else
+            //{
+            //    InventoryScript.MyInstance.AddBag(this,MyBagButton);
+            //}
 
-            MyBagScript.MyBagIndex = MyBagButton.MyBagIndex;
-        }
+            //MyBagScript.MyBagIndex = MyBagButton.MyBagIndex;
+        //}
  
     }
 
-    public void SetupScript()
-    {
-        MyBagScript = Instantiate(bagPrefab, InventoryScript.MyInstance.transform).GetComponent<BagScript>();
-        MyBagScript.AddSlots(slots);
-    }
+    //public void SetupScript()
+    //{
+    //    MyBagScript = Instantiate(bagPrefab, InventoryScript.MyInstance.transform).GetComponent<BagScript>();
+    //    MyBagScript.AddSlots(slots);
+    //}
 
     public override string GetDescription()
     {

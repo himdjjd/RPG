@@ -66,6 +66,8 @@ public class DialogueWindow : Window
     {
         answers.Clear();
 
+        Clear2();
+
         foreach (DialogueNode node in dialogue.Nodes)
         {
             if (node.Parent == currentNode.Name)
@@ -112,6 +114,20 @@ public class DialogueWindow : Window
     private void Clear()
     {
         text.text = string.Empty;
+
+        answerTransform.gameObject.SetActive(false);
+
+        foreach (GameObject gameObject in buttons)
+        {
+            Destroy(gameObject);
+        }
+
+        buttons.Clear();
+    }
+
+    private void Clear2()
+    {
+    
 
         answerTransform.gameObject.SetActive(false);
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public delegate void ItemCountChanged(Item item);
 
@@ -34,10 +35,10 @@ public class InventoryScript : MonoBehaviour
     [SerializeField]
     private Item[] items;
 
-    public bool CanAddBag
-    {
-        get { return MyBags.Count < 5; }
-    }
+    //public bool CanAddBag
+    //{
+    //    get { return MyBags.Count < 5; }
+    //}
 
     public int MyEmptySlotCount
     {
@@ -103,6 +104,8 @@ public class InventoryScript : MonoBehaviour
         }
     }
 
+ 
+
     private void Awake()
     {
         Bag bag = (Bag)Instantiate(items[8]);
@@ -112,29 +115,28 @@ public class InventoryScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             Bag bag = (Bag)Instantiate(items[8]);
             bag.Initialize(40);
             AddItem(bag);
         }
-        if (Input.GetKeyDown(KeyCode.K))//Debugging for adding a bag to the inventory
+        if (Input.GetKeyDown(KeyCode.X))//Debugging for adding a bag to the inventory
         {
-            Bag bag = (Bag)Instantiate(items[8]);
-            bag.Initialize(20);
-            AddItem(bag);
+            //Bag bag = (Bag)Instantiate(items[8]);
+            //bag.Initialize(20);
+            //AddItem(bag);
 
         }
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             HealthPotion potion = (HealthPotion)Instantiate(items[9]);
             AddItem(potion);
         }
-        if (Input.GetKeyDown(KeyCode.U))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             GoldNugget nugget = (GoldNugget)Instantiate(items[11]);
             AddItem(nugget);
-            AddItem((HealthPotion)Instantiate(items[9]));
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
@@ -157,7 +159,7 @@ public class InventoryScript : MonoBehaviour
     /// <summary>
     /// Equips a bag to the inventory
     /// </summary>
-    /// <param name="bag"></param>
+    /// <param name = "bag" ></ param >
     public void AddBag(Bag bag)
     {
         foreach (BagButton bagButton in bagButtons)
@@ -167,69 +169,69 @@ public class InventoryScript : MonoBehaviour
                 bagButton.MyBag = bag;
                 MyBags.Add(bag);
                 bag.MyBagButton = bagButton;
-                bag.MyBagScript.transform.SetSiblingIndex(bagButton.MyBagIndex);
+                //bag.MyBagScript.transform.SetSiblingIndex(bagButton.MyBagIndex);
                 break;
             }
         }
     }
 
-    public void AddBag(Bag bag, BagButton bagButton)
-    {
-        MyBags.Add(bag);
-        bagButton.MyBag = bag;
-        bag.MyBagScript.transform.SetSiblingIndex(bagButton.MyBagIndex);
-    }
+    //public void AddBag(Bag bag, BagButton bagButton)
+    //{
+    //    MyBags.Add(bag);
+    //    bagButton.MyBag = bag;
+    //    //bag.MyBagScript.transform.SetSiblingIndex(bagButton.MyBagIndex);
+    //}
 
-    public void AddBag(Bag bag, int bagIndex)
-    {
-        bag.SetupScript();
-        MyBags.Add(bag);
-        bag.MyBagScript.MyBagIndex = bagIndex;
-        bag.MyBagButton = bagButtons[bagIndex];
-        bagButtons[bagIndex].MyBag = bag;
-    }
+    //public void AddBag(Bag bag, int bagIndex)
+    //{
+    //    bag.SetupScript();
+    //    MyBags.Add(bag);
+    //    bag.MyBagScript.MyBagIndex = bagIndex;
+    //    bag.MyBagButton = bagButtons[bagIndex];
+    //    bagButtons[bagIndex].MyBag = bag;
+    //}
 
-    /// <summary>
-    /// Removes the bag from the inventory
-    /// </summary>
-    /// <param name="bag"></param>
-    public void RemoveBag(Bag bag)
-    {
-        MyBags.Remove(bag);
-        Destroy(bag.MyBagScript.gameObject);
-    }
+    ///// <summary>
+    ///// Removes the bag from the inventory
+    ///// </summary>
+    ///// <param name="bag"></param>
+    //public void RemoveBag(Bag bag)
+    //{
+    //    MyBags.Remove(bag);
+    //    Destroy(bag.MyBagScript.gameObject);
+    //}
 
-    public void SwapBags(Bag oldBag, Bag newBag)
-    {
-        int newSlotCount = (MyTotalSlotCount - oldBag.MySlotCount) + newBag.MySlotCount;
+    //public void SwapBags(Bag oldBag, Bag newBag)
+    //{
+    //    int newSlotCount = (MyTotalSlotCount - oldBag.MySlotCount) + newBag.MySlotCount;
 
-        if (newSlotCount - MyFullSlotCount >= 0)
-        {
-            //Do Swap
-            List<Item> bagItems = oldBag.MyBagScript.GetItems();
+    //    if (newSlotCount - MyFullSlotCount >= 0)
+    //    {
+    //        //Do Swap
+    //        List<Item> bagItems = oldBag.MyBagScript.GetItems();
 
-            RemoveBag(oldBag);
+    //        RemoveBag(oldBag);
 
-            newBag.MyBagButton = oldBag.MyBagButton;
+    //        newBag.MyBagButton = oldBag.MyBagButton;
 
-            newBag.Use();
+    //        newBag.Use();
 
-            foreach (Item item in bagItems)
-            {
-                if (item != newBag) //No duplicates
-                {
-                    AddItem(item);
-                }
-            }
+    //        foreach (Item item in bagItems)
+    //        {
+    //            if (item != newBag) //No duplicates
+    //            {
+    //                AddItem(item);
+    //            }
+    //        }
 
-            AddItem(oldBag);
+    //        AddItem(oldBag);
 
-            HandScript.MyInstance.Drop();
+    //        HandScript.MyInstance.Drop();
 
-            MyInstance.fromSlot = null;
+    //        MyInstance.fromSlot = null;
 
-        }
-    }
+    //    }
+    //}
 
     /// <summary>
     /// Adds an item to the inventory
@@ -441,4 +443,6 @@ public class InventoryScript : MonoBehaviour
             itemCountChangedEvent.Invoke(item);
         }
     }
+
+  
 }

@@ -46,7 +46,7 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             else if(HandScript.MyInstance.MyMoveable == null && MyEquippedArmor != null)
             {
               
-                HandScript.MyInstance.TakeMoveable(MyEquippedArmor);
+                HandScript.MyInstance.TakeMoveable(MyEquippedArmor,MyEquippedArmor);
                 CharacterPanel.MyInstance.MySlectedButton = this;
                 icon.color = Color.grey;
             }

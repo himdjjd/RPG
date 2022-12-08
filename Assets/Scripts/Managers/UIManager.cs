@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public CanvasGroup[] MyMenus { get => menus; set => menus = value; }
+
     /// <summary>
     /// A reference to all the action buttons
     /// </summary>
@@ -71,6 +73,9 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private GameObject[] keybindButtons;
 
+
+    [SerializeField]
+    private GameObject BagcloseBtn;
     private void Awake()
     {
         keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
@@ -84,35 +89,44 @@ public class UIManager : MonoBehaviour
     }
 
     // Update is called once per frame
+    [Obsolete]
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OpenClose(menus[0]);
+            OpenClose(MyMenus[0]);
         }
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            OpenClose(menus[1]);
+            OpenClose(MyMenus[1]);
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
             InventoryScript.MyInstance.OpenClose();
+            if (BagcloseBtn.active == true)
+            {
+                BagcloseBtn.SetActive(false);
+            }
+            else
+            {
+                BagcloseBtn.SetActive(true);
+            }
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            OpenClose(menus[2]);
+            OpenClose(MyMenus[2]);
         }
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            OpenClose(menus[3]);
+            OpenClose(MyMenus[3]);
         }
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            OpenClose(menus[6]);
+            OpenClose(MyMenus[6]);
         }
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            OpenClose(menus[7]);
+            OpenClose(MyMenus[7]);
         }
 
 
@@ -240,7 +254,7 @@ public class UIManager : MonoBehaviour
 
     public void OpenSingle(CanvasGroup canvasGroup)
     {
-        foreach (CanvasGroup canvas in menus)
+        foreach (CanvasGroup canvas in MyMenus)
         {
             CloseSingle(canvas);
         }

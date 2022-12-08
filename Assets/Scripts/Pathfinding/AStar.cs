@@ -161,10 +161,12 @@ public class AStar : MonoBehaviour
         Vector3Int second = new Vector3Int(currentNode.Position.x, currentNode.Position.y + (direction.y * -1), currentNode.Position.z);
 
         //Checks if both nodes are empty
-        if (GameManager.MyInstance.Blocked.Contains(first) || GameManager.MyInstance.Blocked.Contains(second))
-        {
-            return false;
-        }
+        
+            if (GameManager.MyInstance.Blocked.Contains(first) || GameManager.MyInstance.Blocked.Contains(second))
+            {
+                return false;
+            }
+        
 
         //The ndoes are empty
         return true;

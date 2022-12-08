@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 50286977808819324}
   - component: {fileID: 95737730248486886}
   - component: {fileID: 61650097614070454}
+  - component: {fileID: 4062888248959328070}
   m_Layer: 13
   m_Name: LightningPrefab
   m_TagString: Untagged
@@ -45,10 +46,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -150,3 +153,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.09, y: 0.07}
   m_EdgeRadius: 0
+--- !u!114 &4062888248959328070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478980718226232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c7aeccf0067cc34ca433e65916fd868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5

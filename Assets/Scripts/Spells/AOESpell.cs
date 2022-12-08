@@ -8,7 +8,7 @@ public abstract class AOESpell : MonoBehaviour
     protected List<Enemy> enemies = new List<Enemy>();
 
     [SerializeField]
-    protected ParticleSystem particleSystem;
+    protected new ParticleSystem particleSystem;
 
     protected MainModule main;
 

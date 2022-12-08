@@ -18,7 +18,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             //Then give a spell to the hand.
-            HandScript.MyInstance.TakeMoveable(SpellBook.MyInstance.GetSpell(spellName));
+            HandScript.MyInstance.SpellTakeMoveable(SpellBook.MyInstance.GetSpell(spellName));
         }
     }
 }

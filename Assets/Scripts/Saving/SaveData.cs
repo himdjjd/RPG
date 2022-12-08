@@ -7,6 +7,8 @@ public class SaveData
 {
     public PlayerData MyPlayerData { get; set; }
 
+    public ArmorDate MyArmorDate { get; set; }
+
     public List<ChestData> MyChestData { get; set; }
 
     public List<EquipmentData> MyEquipmentData { get; set; }
@@ -72,6 +74,21 @@ public class PlayerData
 }
 
 [Serializable]
+public class ArmorDate
+{
+    public int MyIntellect { get; set; }
+    public int MyStrength { get; set; }
+    public int MyStamina { get; set; }
+
+    public ArmorDate(int stamina, int intellect, int strength)
+    {
+        this.MyStamina = stamina;
+        this.MyIntellect = intellect;
+        this.MyStrength = strength;
+    }
+}
+
+[Serializable]
 public class ItemData
 {
     public string MyTitel { get; set; }
@@ -126,10 +143,11 @@ public class BagData
     public int MySlotCount { get; set; }
     public int MyBagIndex { get; set; }
 
-    public BagData(int count, int index)
+    public BagData(int count)
     {
         MySlotCount = count;
-        MyBagIndex = index;
+       
+        //, int index MyBagIndex = index;
 
     }
 }
