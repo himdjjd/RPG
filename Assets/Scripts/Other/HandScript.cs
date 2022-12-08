@@ -72,12 +72,14 @@ public class HandScript : MonoBehaviour
     /// </summary>
     /// <param name="moveable">The moveable to pick up</param>
     string moveableText = null;
+    private SlotScript slotScript=null;
     public void TakeMoveable(IMoveable moveable,Item item)
     {
         this.MyMoveable = moveable;
         icon.sprite = moveable.MyIcon;
         icon.enabled = true;
         moveableText = item.MyTitle;
+        slotScript = item.MySlot;
     }
 
     public void SpellTakeMoveable(IMoveable moveable)
@@ -129,6 +131,10 @@ public class HandScript : MonoBehaviour
 
     public void DropFalse()
     {
+        MyMoveable = null;
+        icon.enabled = false;
+        InventoryScript.MyInstance.FromSlot = null;
+        slotScript.MyCover.enabled = false;
         CloseDialogue();
       
     }
